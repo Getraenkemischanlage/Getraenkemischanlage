@@ -18,4 +18,4 @@ class MixerController:
 
     def activate_pump(self, pump_id, duration):
         print(f"Pumpe {pump_id} für {duration} Sekunden aktiv.")
-        # Hier käme die GPIO-Steuerung mit z. B. time.sleep()
+        # Hier käme die GPIO-Steuerung mit z. B. time.sleep().
