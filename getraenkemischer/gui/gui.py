@@ -34,7 +34,7 @@ class BeverageGUI:
 
     def create_progress_bars(self, parent):
         tk.Label(parent, text="Füllstände der Zutaten:").pack()
-        for ingredient in ["water", "syrup_a", "syrup_b", "alcohol"]:
+        for ingredient in ["Wasser", "Sirup_a", "Sirup_b", "Alkohol"]:
             frame = tk.Frame(parent)
             frame.pack(padx=10, pady=2, fill='x')
             tk.Label(frame, text=ingredient, width=12, anchor='w').pack(side='left')

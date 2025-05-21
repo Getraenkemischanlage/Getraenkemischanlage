@@ -10,10 +10,10 @@ class PumpController:
     def __init__(self):
         # Assign real GPIO pins for each ingredient
         self.pump_pins = {
-            "water": 29,      # GP29
-            "syrup_a": 27,    # GP27
-            "syrup_b": 26,    # GP26
-            "alcohol": 25     # GP25
+            "Wasser": 29,      # GP29
+            "Sirup_a": 27,    # GP27
+            "Sirup_b": 26,    # GP26
+            "Alkohol": 25     # GP25
         }
 
         self.flow_rate_ml_per_sec = 10  # Flow rate: 10 ml/sec (example)
