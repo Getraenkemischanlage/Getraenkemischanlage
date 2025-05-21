@@ -11,7 +11,7 @@ from machine import Pin
 
 class SensorManager:
     def __init__(self, volume_per_tank=500):
-        #volume_per_tank: Wieviel ml in einem Behälter sind, wenn der Sensor 'voll' meldet.
+        #volume_per_tank: Wieviel ml in einem Behälter sind, wenn der Sensor 'voll' meldet
         
         self.volume_per_tank = volume_per_tank  
 
