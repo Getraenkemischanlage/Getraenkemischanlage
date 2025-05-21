@@ -4,7 +4,7 @@ class BeverageSuggestion:
     def __init__(self, fill_levels):
         """
         fill_levels: dict mit Füllständen in Milliliter
-        Beispiel: {"water": 800, "syrup_a": 500, "syrup_b": 200, "alcohol": 300}
+        Beispiel: {"Wasser": 800, "Sirup_a": 500, "Sirup_b": 200, "Alkohol": 300}
         """
         self.fill_levels = fill_levels
 
@@ -12,10 +12,10 @@ class BeverageSuggestion:
         self.target_volume_ml = 200
 
         self.recipes = {
-            "Cola-Mix":     {"water": 0.4, "syrup_a": 0.3,},
-            "Cocktail":     {"alcohol": 0.4, "syrup_b": 0.2, "water": 0.4},
-            "Schorle":      {"water": 0.5, "syrup_b": 0.5},
-            "Light Mix":    {"water": 0.7, "syrup_a": 0.3}
+            "Cola-Mix":     {"Wasser": 0.4, "Sirup_a": 0.3,},
+            "Cocktail":     {"Alkohol": 0.4, "Sirup_b": 0.2, "Wasser": 0.4},
+            "Schorle":      {"Wasser": 0.5, "Sirup_b": 0.5},
+            "Cola-Light Mix":    {"Wasser": 0.7, "Sirup_a": 0.3}
         }
 
     def suggest_best_drink(self):
@@ -51,13 +51,6 @@ class BeverageSuggestion:
         for ingredient, fraction in recipe.items():
             needed = self.target_volume_ml * fraction
             self.fill_levels[ingredient] -= needed
-
-#sensor_data = {
-#    "water": 800,
- #   "syrup_a": 300,
-  #  "syrup_b": 100,
-   # "alcohol": 100
-#}
 
 sensor_manager = SensorManager()
 current_fill_levels = sensor_manager.read_fill_levels()
