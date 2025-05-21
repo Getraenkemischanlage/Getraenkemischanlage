@@ -11,7 +11,13 @@ class BeverageSuggestion:
         # Rezepte mit festem Volumen (z. B. 200 ml).
         self.target_volume_ml = 200
 
-       
+        self.recipes = {
+            "Cola-Mix":         {"Wasser": 0.4, "Sirup_a": 0.3,},
+            "Cocktail":         {"Alkohol": 0.4, "Sirup_b": 0.2, "Wasser": 0.4},
+            "Schorle":          {"Wasser": 0.5, "Sirup_b": 0.5},
+            "Cola-Light Mix":   {"Wasser": 0.7, "Sirup_a": 0.3}
+        }
+     
     def suggest_best_drink(self):
         best_drink = None
         max_possible_volume = 0
