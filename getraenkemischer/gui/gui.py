@@ -1,89 +1,89 @@
 # gui.py
-"""
-GUI-Modul für die Getränkemischanlage
-Verwendet tkinter, verbindet sich mit MixerController und SensorManager
-"""
-import threading
 import tkinter as tk
 from tkinter import ttk
+from ..hardware.sensor_manager import SensorManager
+from ..algorithmus.drink_suggestion import BeverageSuggestion
 
-class GUIController:
-    def __init__(self, mixer, sensor_manager):
-        self.mixer = mixer
-        self.sensor_manager = sensor_manager
+class BeverageGUI:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Getränkesteuerung")
 
-        self.root = tk.Tk()
-        self.root.title("Getränkemischanlage")
-        self._build_ui()
-        self._update_sensors_loop()
+        self.sensor_manager = SensorManager()
+        self.fill_levels = self.sensor_manager.read_fill_levels()
+        self.logic = BeverageSuggestion(self.fill_levels.copy())
 
-    def _build_ui(self):
-        # Getränkewahl
-        ttk.Label(self.root, text="Getränk auswählen:").grid(row=0, column=0, padx=10, pady=5, sticky='w')
-        self.combo = ttk.Combobox(self.root, values=list(self.mixer.rezepte.keys()), state="readonly")
-        self.combo.grid(row=0, column=1, padx=10, pady=5)
+        self.text_output = tk.Text(root, height=10, width=50)
+        self.text_output.pack(padx=10, pady=10)
 
-        # Buttons
-        self.btn_start = ttk.Button(self.root, text="Mischen starten", command=self._on_start)
-        self.btn_start.grid(row=1, column=0, padx=10, pady=5)
-        self.btn_stop = ttk.Button(self.root, text="Stopp", command=self._on_stop)
-        self.btn_stop.grid(row=1, column=1, padx=10, pady=5)
+        self.progress_bars = {}
+        self.create_progress_bars(root)
 
-        # Status-Log
-        ttk.Label(self.root, text="Status:").grid(row=2, column=0, padx=10, pady=5, sticky='nw')
-        self.txt_log = tk.Text(self.root, height=10, width=50, state='disabled')
-        self.txt_log.grid(row=3, column=0, columnspan=2, padx=10, pady=5)
+        self.buttons = {}
+        self.drinks = list(self.logic.recipes.keys())
+        for drink in self.drinks:
+            btn = tk.Button(root, text=drink, width=25,
+                            command=lambda d=drink: self.mix_drink(d))
+            btn.pack(pady=2)
+            self.buttons[drink] = btn
 
-        # Sensoranzeige
-        frame = ttk.LabelFrame(self.root, text="Sensorwerte")
-        frame.grid(row=0, column=2, rowspan=4, padx=10, pady=5, sticky='ns')
-        self.lbl_level = ttk.Label(frame, text="Füllstände: --")
-        self.lbl_level.pack(anchor='w', padx=5, pady=2)
-        self.lbl_temp = ttk.Label(frame, text="Temperatur: -- °C")
-        self.lbl_temp.pack(anchor='w', padx=5, pady=2)
+        tk.Button(root, text="Bestes Getränk vorschlagen",
+                  command=self.suggest_best).pack(pady=10)
 
-    def _on_start(self):
-        rezept = self.combo.get()
-        if not rezept:
-            self._log("⚠ Bitte Getränk auswählen!")
-            return
-        self._log(f"🔄 Starte Mischung: {rezept}")
-        threading.Thread(target=self._run_mix, args=(rezept,), daemon=True).start()
+        self.update_gui()
 
-    def _on_stop(self):
-        # Stop-Logik evtl. implementieren
-        self._log("⛔ Stop ausgelöst")
+    def create_progress_bars(self, parent):
+        tk.Label(parent, text="Füllstände der Zutaten:").pack()
+        for ingredient in ["water", "syrup_a", "syrup_b", "alcohol"]:
+            frame = tk.Frame(parent)
+            frame.pack(padx=10, pady=2, fill='x')
+            tk.Label(frame, text=ingredient, width=12, anchor='w').pack(side='left')
+            bar = ttk.Progressbar(frame, length=200, maximum=1000)
+            bar.pack(side='left')
+            self.progress_bars[ingredient] = bar
 
-    def _run_mix(self, rezept):
-        self.mixer.mix(rezept, log_callback=self._log)
+    def update_progress_bars(self):
+        for ingredient, bar in self.progress_bars.items():
+            ml = self.fill_levels.get(ingredient, 0)
+            bar['value'] = ml
 
-    def _log(self, text):
-        self.txt_log.configure(state='normal')
-        self.txt_log.insert('end', text + "\n")
-        self.txt_log.configure(state='disabled')
-        self.txt_log.see('end')
+    def update_button_states(self):
+        for drink, button in self.buttons.items():
+            volume = self.logic.max_mixable_volume_ml(self.logic.recipes[drink])
+            if volume >= self.logic.target_volume_ml:
+                button.config(state="normal")
+            else:
+                button.config(state="disabled")
 
-    def _update_sensors_loop(self):
-        levels = self.sensor_manager.lese_level()
-        temps = self.sensor_manager.lese_temp()
-        lvl_str = ", ".join(f"{name}:{'voll' if val else 'leer'}" for name, val in levels.items())
-        tmp_str = ", ".join(f"{name}:{val:.1f}°C" for name, val in temps.items())
-        self.lbl_level.config(text="Füllstände: " + lvl_str)
-        self.lbl_temp.config(text="Temperatur: " + tmp_str)
-        self.root.after(1000, self._update_sensors_loop)
+    def update_gui(self):
+        self.fill_levels = self.sensor_manager.read_fill_levels()
+        self.logic = BeverageSuggestion(self.fill_levels.copy())
+        self.update_progress_bars()
+        self.update_button_states()
 
-    def run(self):
-        self.root.mainloop()
+    def mix_drink(self, drink_name):
+        self.text_output.delete("1.0", tk.END)
+        if drink_name in self.logic.recipes:
+            self.logic.apply_recipe(drink_name)
+            self.text_output.insert(tk.END, f"{drink_name} wurde gemischt ({self.logic.target_volume_ml} ml)\n")
+        else:
+            self.text_output.insert(tk.END, "Rezept nicht vorhanden.")
+        self.update_gui()
 
-# Beispielaufruf
-if __name__ == '__main__':
-    # Diese Objekte müssen entsprechend importiert und instanziiert werden
-    from mixer_controller.mixer_controller import MixerController
-    from hardware import SensorManager
-    
-    # Dummy-Initialisierung
-    mixer = MixerController(pumpen={})
-    sensor_mgr = SensorManager(level_sensors={}, temp_sensors={})
-    
-    gui = GUIController(mixer, sensor_mgr)
-    gui.run()
+    def suggest_best(self):
+        self.text_output.delete("1.0", tk.END)
+        import io, sys
+        buffer = io.StringIO()
+        sys.stdout = buffer
+        self.logic.suggest_best_drink()
+        sys.stdout = sys.__stdout__
+        result = buffer.getvalue()
+        self.text_output.insert(tk.END, result)
+        self.update_gui()
+
+# Start the GUI
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = BeverageGUI(root)
+    root.mainloop()
+
