@@ -6,7 +6,7 @@ class BeverageSuggestion:
         """
         self.fill_levels = fill_levels
 
-        # Rezepte mit festem Volumen (z. B. 200 ml)
+        # Rezepte mit festem Volumen (z. B. 200 ml).
         self.target_volume_ml = 200
 
         self.recipes = {
