@@ -18,10 +18,10 @@ class SensorManager:
         # Hier ordnen wir jedem Behälter einen bestimmten GPIO-Pin zu.
         # Die Sensoren sind so angeschlossen, dass sie bei "voll" ein HIGH-Signal (1) liefern.
         self.sensor_pins = {
-            "water": Pin(0, Pin.IN, Pin.PULL_DOWN),     # Sensor an GPIO 0
-            "syrup_a": Pin(1, Pin.IN, Pin.PULL_DOWN),   # Sensor an GPIO 1
-            "syrup_b": Pin(2, Pin.IN, Pin.PULL_DOWN),   # Sensor an GPIO 2
-            "alcohol": Pin(4, Pin.IN, Pin.PULL_DOWN)    # Sensor an GPIO 4
+            "Wasser": Pin(0, Pin.IN, Pin.PULL_DOWN),     # Sensor an GPIO 0
+            "Sirup_a": Pin(1, Pin.IN, Pin.PULL_DOWN),   # Sensor an GPIO 1
+            "Sirup_b": Pin(2, Pin.IN, Pin.PULL_DOWN),   # Sensor an GPIO 2
+            "Alkohol": Pin(4, Pin.IN, Pin.PULL_DOWN)    # Sensor an GPIO 4
         }
 
     def read_fill_levels(self):
