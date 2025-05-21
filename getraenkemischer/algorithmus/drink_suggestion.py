@@ -1,3 +1,5 @@
+from hardware.sensor_manager import SensorManager
+
 class BeverageSuggestion:
     def __init__(self, fill_levels):
         """
@@ -50,12 +52,15 @@ class BeverageSuggestion:
             needed = self.target_volume_ml * fraction
             self.fill_levels[ingredient] -= needed
 
-sensor_data = {
-    "water": 800,
-    "syrup_a": 300,
-    "syrup_b": 100,
-    "alcohol": 100
-}
+#sensor_data = {
+#    "water": 800,
+ #   "syrup_a": 300,
+  #  "syrup_b": 100,
+   # "alcohol": 100
+#}
 
-mixer = BeverageSuggestion(sensor_data)
+sensor_manager = SensorManager()
+current_fill_levels = sensor_manager.read_fill_levels()
+
+mixer = BeverageSuggestion(current_fill_levels)
 mixer.suggest_best_drink()

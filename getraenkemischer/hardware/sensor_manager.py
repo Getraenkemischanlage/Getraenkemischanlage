@@ -1,4 +1,4 @@
-#from machine import Pin
+from machine import Pin
 
 class SensorManager:
     def __init__(self, volume_per_tank=500):
@@ -12,7 +12,6 @@ class SensorManager:
             "water": Pin(0, Pin.IN, Pin.PULL_DOWN),
             "syrup_a": Pin(1, Pin.IN, Pin.PULL_DOWN),
             "syrup_b": Pin(2, Pin.IN, Pin.PULL_DOWN),
-            "co2": Pin(3, Pin.IN, Pin.PULL_DOWN),
             "alcohol": Pin(4, Pin.IN, Pin.PULL_DOWN)
         }
 
