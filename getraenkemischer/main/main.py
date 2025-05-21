@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from controller.mixer_controller import MixerController  # falls in anderer Datei
+from controller.mixer_controller import MixerController
 
 class MainApp:
     def __init__(self, root):

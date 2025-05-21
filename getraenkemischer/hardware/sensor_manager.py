@@ -1,8 +1,12 @@
+# Liest die Sensoren und gibt in Dictionary zurück ob Behälter voll oder leer sind
+# Anschlüsse der Sensoren an den Raspberry Pi:
 # Sensor 1: GP 0
 # Sensor 2: GP 1
 # Sensor 3: GP 2
 # Sensor 4: GP 3
 # Sensor 5: GP 4
+
+
 
 # Wir importieren die Pin-Klasse aus der machine-Bibliothek,
 # damit wir die GPIO-Pins des Raspberry Pi Pico benutzen können.
@@ -18,7 +22,7 @@ class SensorManager:
         # Hier ordnen wir jedem Behälter einen bestimmten GPIO-Pin zu.
         # Die Sensoren sind so angeschlossen, dass sie bei "voll" ein HIGH-Signal (1) liefern.
         self.sensor_pins = {
-            "Wasser": Pin(0, Pin.IN, Pin.PULL_DOWN),     # Sensor an GPIO 0
+            "Wasser": Pin(0, Pin.IN, Pin.PULL_DOWN),    # Sensor an GPIO 0
             "Sirup_a": Pin(1, Pin.IN, Pin.PULL_DOWN),   # Sensor an GPIO 1
             "Sirup_b": Pin(2, Pin.IN, Pin.PULL_DOWN),   # Sensor an GPIO 2
             "Alkohol": Pin(4, Pin.IN, Pin.PULL_DOWN)    # Sensor an GPIO 4

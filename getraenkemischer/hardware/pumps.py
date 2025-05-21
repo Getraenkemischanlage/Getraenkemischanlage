@@ -8,16 +8,17 @@ import time
 
 class PumpController:
     def __init__(self):
-        # Assign real GPIO pins for each ingredient
+        # Hier ordnen wir die Pumpen zu den Pins zu
         self.pump_pins = {
-            "Wasser": 29,      # GP29
-            "Sirup_a": 27,    # GP27
-            "Sirup_b": 26,    # GP26
-            "Alkohol": 25     # GP25
+            "Wasser": 22,     
+            "Sirup_a": 21,    
+            "Sirup_b": 20,    
+            "Sirup_c": 19,
+            "Alkohol": 18     
         }
 
-        self.flow_rate_ml_per_sec = 10  # Flow rate: 10 ml/sec (example)
-
+        self.flow_rate_ml_per_sec = 10  # Flow rate: 10 ml/sec 
+    
         try:
             from machine import Pin
             self.pumps = {
