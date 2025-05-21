@@ -78,7 +78,7 @@ class GUIController:
 # Beispielaufruf
 if __name__ == '__main__':
     # Diese Objekte müssen entsprechend importiert und instanziiert werden
-    from mixer_controller import MixerController
+    from mixer_controller.mixer_controller import MixerController
     from hardware import SensorManager
     
     # Dummy-Initialisierung
