@@ -1,5 +1,5 @@
 import time
-from pump_controller import PumpController  # Stelle sicher, dass diese Datei existiert
+from ..hardware.pump_controller import PumpController  # Stelle sicher, dass diese Datei existiert
 
 class MixerController:
     def __init__(self, pump_controller=None):
@@ -8,7 +8,7 @@ class MixerController:
         """
         self.pump_controller = pump_controller or PumpController()
 
-        # Fiktive Rezepte mit Pumpennamen und Laufzeit in Sekunden
+        # Rezepte mit Pumpennamen und Laufzeit in Sekunden
         self.recipes = {
             "Cola-Mix":         {"water": 0.3, "syrup_a": 0.7},
             "Cocktail":         {"alcohol": 0.4, "syrup_b": 0.2, "water": 0.4},
