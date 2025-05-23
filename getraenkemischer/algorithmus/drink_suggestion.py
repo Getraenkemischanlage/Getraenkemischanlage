@@ -53,7 +53,7 @@ class BeverageSuggestion:
             self.fill_levels[ingredient] -= needed
 
 sensor_manager = SensorManager()
-current_fill_levels = sensor_manager.read_fill_levels()
+current_fill_levels = sensor_manager.read_sensors()
 
 mixer = BeverageSuggestion(current_fill_levels)
 mixer.suggest_best_drink()

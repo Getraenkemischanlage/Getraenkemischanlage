@@ -3,9 +3,8 @@ from ..hardware.pump_controller import PumpController  # Stelle sicher, dass die
 
 class MixerController:
     def __init__(self, pump_controller=None):
-        """
-        Initialisiert den MixerController mit optional übergebenem PumpController.
-        """
+        # Initialisiert den MixerController mit optional übergebenem PumpController.
+        
         self.pump_controller = pump_controller or PumpController()
 
         # Rezepte mit Pumpennamen und Laufzeit in Sekunden

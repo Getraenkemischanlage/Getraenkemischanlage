@@ -3,6 +3,7 @@ from tkinter import ttk
 from controller.mixer_controller import MixerController
 
 class MainApp:
+    '''
     def __init__(self, root):
         self.root = root
         self.root.title("Getränkemischanlage")
@@ -25,7 +26,7 @@ class MainApp:
 
         self.status_display = tk.Text(root, height=6, width=50, state="disabled")
         self.status_display.grid(row=2, column=0, columnspan=2, padx=10, pady=5)
-
+    '''
     def start_mixing(self):
         drink = self.drink_selection.get()
         if not drink:
@@ -44,6 +45,6 @@ class MainApp:
         self.status_display.configure(state="disabled")
 
 if __name__ == "__main__":
-    root = tk.Tk()
-    app = MainApp(root)
-    root.mainloop()
+    root = tk.Tk()                  # 
+    #app = MainApp(root)            # 
+    root.mainloop()                 # hält Fenster geöffnet
