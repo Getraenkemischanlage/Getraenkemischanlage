@@ -31,12 +31,12 @@ class MainApp:
         if not drink:
             self.update_status("⚠ Bitte ein Getränk auswählen!")
             return
-        self.update_status(f"🔄 Starte Mischung: {drink}")
+        self.update_status(f"Starte Mischung: {drink}")
         self.mixer.mix(drink)
-        self.update_status(f"✅ Mischung {drink} abgeschlossen.")
+        self.update_status(f"Mischung {drink} abgeschlossen.")
 
     def stop_mixing(self):
-        self.update_status("⛔ Mischung gestoppt (funktional noch nicht implementiert)")
+        self.update_status("Mischung gestoppt (funktional noch nicht implementiert)")
 
     def update_status(self, message):
         self.status_display.configure(state="normal")
