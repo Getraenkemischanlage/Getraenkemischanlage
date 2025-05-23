@@ -8,7 +8,7 @@ import time
 
 class PumpController:
     def __init__(self):
-        # Hier ordnen wir die Pumpen zu den Pins zu
+        # Zuordnung der Pumpen zu den Pins
         self.pump_pins = {
             "Wasser": 22,     
             "Sirup_a": 21,    
@@ -17,7 +17,7 @@ class PumpController:
             "Alkohol": 18     
         }
 
-        self.flow_rate_ml_per_sec = 10  # Flow rate: 10 ml/sec 
+        self.flow_rate_ml_per_sec = 10  # Flow rate: 10 ml/sec (Testwert)
     
         try:
             from machine import Pin
