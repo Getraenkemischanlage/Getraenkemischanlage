@@ -20,9 +20,10 @@ class BeverageSuggestion:
         self.fill_levels = fill_levels
         self.target_volume_ml = 200
         self.recipes = {
-            "Cola Mix": {"Wasser": 100, "Sirup_a": 100},
-            "Alkoholfrei": {"Wasser": 150, "Sirup_b": 50},
-            "Party Drink": {"Wasser": 100, "Sirup_a": 50, "Alkohol": 50}
+             "Cola-Mix":         {"Wasser": 60, "Sirup_a": 140,},
+            "Cocktail":         {"Alkohol": 80, "Sirup_b": 40, "Wasser": 80},
+            "Schorle":          {"Wasser": 100, "Sirup_b": 100},
+            "Cola-Light Mix":   {"Wasser": 140, "Sirup_a": 60}
         }
 
     def apply_recipe(self, drink_name):
