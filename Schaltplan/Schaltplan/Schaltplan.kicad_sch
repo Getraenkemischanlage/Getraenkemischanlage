@@ -2612,6 +2612,12 @@
 		(uuid "6c5343a1-4ed0-4402-a3d6-7ec7e1b5d6a2")
 	)
 	(junction
+		(at 180.34 71.12)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "7a55e8b5-6ab7-49ec-b723-a5cbdb640d16")
+	)
+	(junction
 		(at 267.97 20.32)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2670,12 +2676,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "c45e6c7f-b354-473c-adc6-e0ae8a49b553")
-	)
-	(junction
-		(at 180.34 71.12)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "c812f023-3bd1-4d3e-ab46-8f59a92a2907")
 	)
 	(junction
 		(at 270.51 20.32)
@@ -2753,7 +2753,7 @@
 	)
 	(wire
 		(pts
-			(xy 165.1 38.1) (xy 224.79 38.1)
+			(xy 167.64 38.1) (xy 224.79 38.1)
 		)
 		(stroke
 			(width 0)
@@ -2800,6 +2800,16 @@
 			(type default)
 		)
 		(uuid "0e1d17ab-6e0d-48c2-a2ae-93324cbd5713")
+	)
+	(wire
+		(pts
+			(xy 110.49 52.07) (xy 118.11 52.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0e773cde-05ef-49ea-b6d3-20f5f413ca62")
 	)
 	(wire
 		(pts
@@ -3093,6 +3103,16 @@
 	)
 	(wire
 		(pts
+			(xy 170.18 71.12) (xy 180.34 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4db67700-9df9-4bde-9ef5-1179e9add817")
+	)
+	(wire
+		(pts
 			(xy 19.05 59.69) (xy 19.05 74.93)
 		)
 		(stroke
@@ -3183,6 +3203,16 @@
 	)
 	(wire
 		(pts
+			(xy 167.64 53.34) (xy 167.64 52.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5e8c7f24-948b-48c3-9568-e68f55808579")
+	)
+	(wire
+		(pts
 			(xy 227.33 62.23) (xy 165.1 62.23)
 		)
 		(stroke
@@ -3243,16 +3273,6 @@
 	)
 	(wire
 		(pts
-			(xy 110.49 44.45) (xy 118.11 44.45)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6f0967ee-250d-4580-adc5-d5c968762fab")
-	)
-	(wire
-		(pts
 			(xy 62.23 55.88) (xy 76.2 55.88)
 		)
 		(stroke
@@ -3263,7 +3283,7 @@
 	)
 	(wire
 		(pts
-			(xy 165.1 38.1) (xy 165.1 39.37)
+			(xy 167.64 38.1) (xy 167.64 41.91)
 		)
 		(stroke
 			(width 0)
@@ -3573,7 +3593,7 @@
 	)
 	(wire
 		(pts
-			(xy 180.34 46.99) (xy 180.34 71.12)
+			(xy 180.34 53.34) (xy 180.34 71.12)
 		)
 		(stroke
 			(width 0)
@@ -3643,7 +3663,7 @@
 	)
 	(wire
 		(pts
-			(xy 180.34 46.99) (xy 170.18 46.99)
+			(xy 180.34 53.34) (xy 167.64 53.34)
 		)
 		(stroke
 			(width 0)
@@ -3753,7 +3773,7 @@
 	)
 	(wire
 		(pts
-			(xy 180.34 160.02) (xy 199.39 160.02)
+			(xy 180.34 160.02) (xy 246.38 160.02)
 		)
 		(stroke
 			(width 0)
@@ -3903,16 +3923,6 @@
 	)
 	(wire
 		(pts
-			(xy 207.01 160.02) (xy 246.38 160.02)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "dcec4f2a-780a-4b17-9ef6-2133ccae88af")
-	)
-	(wire
-		(pts
 			(xy 224.79 38.1) (xy 240.03 38.1)
 		)
 		(stroke
@@ -3933,7 +3943,7 @@
 	)
 	(wire
 		(pts
-			(xy 118.11 44.45) (xy 118.11 25.4)
+			(xy 118.11 25.4) (xy 118.11 52.07)
 		)
 		(stroke
 			(width 0)
@@ -4053,16 +4063,6 @@
 	)
 	(wire
 		(pts
-			(xy 180.34 71.12) (xy 170.18 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fb6cd260-ba7a-4119-9a2f-f9f58f9bf6e3")
-	)
-	(wire
-		(pts
 			(xy 240.03 20.32) (xy 240.03 24.13)
 		)
 		(stroke
@@ -4152,7 +4152,7 @@
 	)
 	(symbol
 		(lib_id "Device:D")
-		(at 224.79 81.28 90)
+		(at 224.79 81.28 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4161,19 +4161,21 @@
 		(fields_autoplaced yes)
 		(uuid "11e0026d-2c86-4794-b91f-f0307bd7a924")
 		(property "Reference" "D3"
-			(at 218.44 81.28 0)
+			(at 227.33 80.0099 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Value" "D"
-			(at 220.98 81.28 0)
+			(at 227.33 82.5499 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -4436,7 +4438,7 @@
 				)
 			)
 		)
-		(property "Value" "1k"
+		(property "Value" "330"
 			(at 138.43 67.31 90)
 			(effects
 				(font
@@ -4554,7 +4556,7 @@
 	)
 	(symbol
 		(lib_id "Device:D")
-		(at 222.25 134.62 90)
+		(at 222.25 134.62 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4563,19 +4565,21 @@
 		(fields_autoplaced yes)
 		(uuid "1fe687ff-5e22-41de-a465-0942415b8c16")
 		(property "Reference" "D5"
-			(at 215.9 134.62 0)
+			(at 224.79 133.3499 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Value" "D"
-			(at 218.44 134.62 0)
+			(at 224.79 135.8899 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -4633,74 +4637,6 @@
 			(project ""
 				(path "/0e7ac635-20e1-4295-a698-68ba131a98e3"
 					(reference "D5")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 203.2 160.02 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "329e9008-38c3-409e-8928-5d9f45ff4fb5")
-		(property "Reference" "R11"
-			(at 203.2 153.67 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "10k"
-			(at 203.2 156.21 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 203.2 161.798 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 203.2 160.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 203.2 160.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "4905efca-3a68-4ce8-a9f9-badcf7f28307")
-		)
-		(pin "1"
-			(uuid "230ba8c8-cb96-404f-9994-6b4719b87e5a")
-		)
-		(instances
-			(project "Schaltplan"
-				(path "/0e7ac635-20e1-4295-a698-68ba131a98e3"
-					(reference "R11")
 					(unit 1)
 				)
 			)
@@ -4929,7 +4865,7 @@
 				)
 			)
 		)
-		(property "Value" "1k"
+		(property "Value" "330"
 			(at 138.43 147.32 90)
 			(effects
 				(font
@@ -5215,7 +5151,7 @@
 				)
 			)
 		)
-		(property "Value" "1k"
+		(property "Value" "330"
 			(at 138.43 43.18 90)
 			(effects
 				(font
@@ -5341,7 +5277,7 @@
 	)
 	(symbol
 		(lib_id "Device:D")
-		(at 223.52 109.22 90)
+		(at 223.52 109.22 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5350,19 +5286,21 @@
 		(fields_autoplaced yes)
 		(uuid "7dd4a278-6613-4a6c-b141-2b3bfabeacb6")
 		(property "Reference" "D4"
-			(at 217.17 109.22 0)
+			(at 226.06 107.9499 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Value" "D"
-			(at 219.71 109.22 0)
+			(at 226.06 110.4899 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -5427,7 +5365,7 @@
 	)
 	(symbol
 		(lib_id "Device:D")
-		(at 227.33 53.34 90)
+		(at 227.33 53.34 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5436,19 +5374,21 @@
 		(fields_autoplaced yes)
 		(uuid "8166e221-1c70-4788-9145-47b18ec76c96")
 		(property "Reference" "D2"
-			(at 220.98 53.34 0)
+			(at 229.87 52.0699 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Value" "D"
-			(at 223.52 53.34 0)
+			(at 229.87 54.6099 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -5513,7 +5453,7 @@
 	)
 	(symbol
 		(lib_id "Transistor_FET:IRLZ44N")
-		(at 165.1 44.45 270)
+		(at 165.1 46.99 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5522,23 +5462,25 @@
 		(fields_autoplaced yes)
 		(uuid "864a33fa-51da-4c2e-a9d9-37067d95b8e4")
 		(property "Reference" "Q1"
-			(at 165.1 50.8 90)
+			(at 171.45 45.7199 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Value" "IRLZ44N"
-			(at 165.1 53.34 90)
+			(at 171.45 48.2599 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_THT:TO-220-3_Vertical"
-			(at 163.195 49.53 0)
+			(at 170.18 48.895 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5549,7 +5491,7 @@
 			)
 		)
 		(property "Datasheet" "http://www.irf.com/product-info/datasheets/data/irlz44n.pdf"
-			(at 161.29 49.53 0)
+			(at 170.18 50.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5559,7 +5501,7 @@
 			)
 		)
 		(property "Description" "47A Id, 55V Vds, 22mOhm Rds Single N-Channel HEXFET Power MOSFET, TO-220AB"
-			(at 165.1 44.45 0)
+			(at 165.1 46.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5948,7 +5890,7 @@
 				)
 			)
 		)
-		(property "Value" "1k"
+		(property "Value" "330"
 			(at 138.43 96.52 90)
 			(effects
 				(font
@@ -6016,7 +5958,7 @@
 				)
 			)
 		)
-		(property "Value" "1k"
+		(property "Value" "330"
 			(at 138.43 125.73 90)
 			(effects
 				(font
@@ -6268,7 +6210,7 @@
 	)
 	(symbol
 		(lib_id "Device:D")
-		(at 224.79 31.75 90)
+		(at 224.79 31.75 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6282,7 +6224,7 @@
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Value" "D"
@@ -6291,7 +6233,7 @@
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
