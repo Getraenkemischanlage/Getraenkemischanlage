@@ -2,8 +2,13 @@
 Funktion:
 - Liest die Sensoren und gibt in einem Dictionary zurück ob die Behälter voll oder leer sind
 
-Methoden:
-- read sensor (Zuordnung Pumpe:Pin)
+Klassen:
+- SensorManager
+    Klassenobjekte:
+        - sensor_pins: dict
+    Klassenmethoden:
+        - __init__()
+        - read_sensors() (gibt dict zurücj mit Zuordnung Pumpe:Pin)
 
 Anschlüsse der Sensoren an den Raspberry Pi:
 - Sensor 1: GP 0

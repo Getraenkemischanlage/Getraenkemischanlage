@@ -1,19 +1,24 @@
-# Load libraries
 from machine import Pin, PWM
 from utime import sleep
 from neopixel import NeoPixel
+
+# Anschluss der LED
 ledPin = 1
 ledCount = 4
 
-# Initialize GPIOs
+# Initialisiere GPIOs
 led = Pin(ledPin, Pin.OUT)
 led = NeoPixel(Pin(ledPin, Pin.OUT), ledCount)
 
+# Farbe
 led[0] = (255, 255, 255) 
 led[1] = (0, 0, 0)
 led[2] = (0, 0, 0)
 led[3] = (0, 0, 0)
+
+# LED anschalten 
 led.write()
+sleep(1)
 
 
 

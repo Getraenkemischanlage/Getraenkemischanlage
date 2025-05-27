@@ -1,10 +1,17 @@
 '''
 Funktion:
-- Ordnet die Pumpen zu Pins zu und setzt sie als Ausgang
+- Ordnet die Pumpen Pins zu und setzt sie als Ausgang
 - Steuert die Pumpen an 
 
-Methoden:
-- dispense (bekommt, ingridient und amount_ml)
+Klassen: 
+- PumpController
+    Klassenobjekte:
+        - pump_pins: dict
+        - flow_rate_ml_per_sec: float
+        - pumps: dict
+    Klassenmethoden:
+        - __init__()
+        - dispense(ingredient: str, amount_ml: float)
 
 Anschlüsse der Pumpen an den Raspberry Pi:
 - Pumpe 1: GP 22
