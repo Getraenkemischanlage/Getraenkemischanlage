@@ -6,12 +6,12 @@ Funktion:
 Klassen: 
 - PumpController
     Klassenobjekte:
-        - pump_pins: dict
-        - flow_rate_ml_per_sec: float
-        - pumps: dict
+    - pump_pins: dict
+    - flow_rate_ml_per_sec: float
+    - pumps: dict
     Klassenmethoden:
-        - __init__()
-        - dispense(ingredient: str, amount_ml: float)
+    - __init__()
+    - dispense(ingredient: str, amount_ml: float)
 
 Anschlüsse der Pumpen an den Raspberry Pi:
 - Pumpe 1: GP 22
@@ -22,7 +22,6 @@ Anschlüsse der Pumpen an den Raspberry Pi:
 
 '''
 from machine import Pin
-from neopixel import NeoPixel #für Testlauf mit LEDs
 import time
 
 class PumpController:
