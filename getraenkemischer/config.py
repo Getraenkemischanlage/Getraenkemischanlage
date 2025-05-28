@@ -20,21 +20,21 @@ from machine import Pin
 
 # GPIO-Zuordnung der Pumpen
 PUMP_PINS = {
-    "Wasser":  Pin(1, Pin.OUT),
-    "Sirup_a": Pin(21, Pin.OUT),
-    "Sirup_b": Pin(20, Pin.OUT),
-    "Sirup_c": Pin(19, Pin.OUT),
-    "Alkohol": Pin(18, Pin.OUT)
+    "Wasser":  Pin(24, Pin.OUT),
+    "Sirup_a": Pin(25, Pin.OUT),
+    "Sirup_b": Pin(26, Pin.OUT),
+    "Sirup_c": Pin(27, Pin.OUT),
+    "Alkohol": Pin(29, Pin.OUT)
 }
 
 
 # GPIO-Zuordnung der Sensoren
 SENSOR_PINS = {
-            "Wasser":  Pin(10, Pin.IN),   # Sensor an GPIO 0
-            "Sirup_a": Pin(11, Pin.IN),   # Sensor an GPIO 1
-            "Sirup_b": Pin(14, Pin.IN),   # Sensor an GPIO 2
-            "Sirup_c": Pin(15, Pin.IN),   # Sensor an GPIO 3
-            "Alkohol": Pin(4, Pin.IN)    # Sensor an GPIO 4
+            "Wasser":  Pin(1, Pin.IN),   # Sensor an GPIO 0
+            "Sirup_a": Pin(2, Pin.IN),   # Sensor an GPIO 1
+            "Sirup_b": Pin(4, Pin.IN),   # Sensor an GPIO 2
+            "Sirup_c": Pin(5, Pin.IN),   # Sensor an GPIO 3
+            "Alkohol": Pin(6, Pin.IN)    # Sensor an GPIO 4
         }
 
     

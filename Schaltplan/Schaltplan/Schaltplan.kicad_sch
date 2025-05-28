@@ -2576,22 +2576,16 @@
 		(uuid "5f749cb7-2cc8-4c78-b84e-8f481d2c73c4")
 	)
 	(junction
+		(at 180.34 78.74)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "6086fd37-fc02-46ec-9240-325fb6af3579")
+	)
+	(junction
 		(at 227.33 62.23)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "60a97222-28d3-4d5c-b180-942c21e67b9c")
-	)
-	(junction
-		(at 180.34 129.54)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "619ced72-0d89-423e-8790-ee65117a04fb")
-	)
-	(junction
-		(at 180.34 151.13)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "6243a978-319b-4c17-a0fd-a7a3f4057f24")
 	)
 	(junction
 		(at 40.64 41.91)
@@ -2612,10 +2606,10 @@
 		(uuid "6c5343a1-4ed0-4402-a3d6-7ec7e1b5d6a2")
 	)
 	(junction
-		(at 180.34 71.12)
+		(at 180.34 106.68)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "7a55e8b5-6ab7-49ec-b723-a5cbdb640d16")
+		(uuid "70ae732d-3d7e-4517-bd8e-9542f6a9b4c0")
 	)
 	(junction
 		(at 267.97 20.32)
@@ -2666,10 +2660,10 @@
 		(uuid "a71322bd-b232-4271-b6ab-cf1d88affd7f")
 	)
 	(junction
-		(at 222.25 143.51)
+		(at 180.34 156.21)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "b55f37ef-b41d-4e76-8b72-4bcb024ff8cb")
+		(uuid "abbe37d0-b4d3-4061-ac33-a89b341a8844")
 	)
 	(junction
 		(at 76.2 71.12)
@@ -2684,16 +2678,22 @@
 		(uuid "cbf634e3-5ed7-4b78-926e-a6fda2b9daab")
 	)
 	(junction
+		(at 180.34 135.89)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "cfcd4e34-3cc2-465a-ac21-46393ebb2c40")
+	)
+	(junction
 		(at 76.2 99.06)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "d37e8b73-5fef-4de8-b94a-1a4300cec09d")
 	)
 	(junction
-		(at 180.34 100.33)
+		(at 222.25 143.51)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "e3d1ba0f-55ad-4fac-829c-579b0163c1a9")
+		(uuid "f21c2c3c-0339-40ee-900f-f62aaaf0d5a7")
 	)
 	(junction
 		(at 19.05 74.93)
@@ -2723,7 +2723,7 @@
 	)
 	(wire
 		(pts
-			(xy 180.34 151.13) (xy 180.34 160.02)
+			(xy 180.34 135.89) (xy 180.34 156.21)
 		)
 		(stroke
 			(width 0)
@@ -2763,7 +2763,7 @@
 	)
 	(wire
 		(pts
-			(xy 166.37 100.33) (xy 180.34 100.33)
+			(xy 166.37 106.68) (xy 180.34 106.68)
 		)
 		(stroke
 			(width 0)
@@ -2810,16 +2810,6 @@
 			(type default)
 		)
 		(uuid "0e773cde-05ef-49ea-b6d3-20f5f413ca62")
-	)
-	(wire
-		(pts
-			(xy 180.34 129.54) (xy 180.34 151.13)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "12da3505-5847-47bb-8b2f-21c45d1994da")
 	)
 	(wire
 		(pts
@@ -2870,16 +2860,6 @@
 			(type default)
 		)
 		(uuid "282d13c8-4458-43a3-a1f6-acb5fcb1ff99")
-	)
-	(wire
-		(pts
-			(xy 156.21 100.33) (xy 142.24 100.33)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2a460ff4-d691-4a08-ac02-5d3492764569")
 	)
 	(wire
 		(pts
@@ -2953,26 +2933,6 @@
 	)
 	(wire
 		(pts
-			(xy 180.34 71.12) (xy 180.34 100.33)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "38ff58c8-321b-4afe-a6e3-92ce6785c604")
-	)
-	(wire
-		(pts
-			(xy 142.24 129.54) (xy 158.75 129.54)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "395ec02b-986f-47ff-a8ed-acf5f96d6978")
-	)
-	(wire
-		(pts
 			(xy 40.64 71.12) (xy 40.64 74.93)
 		)
 		(stroke
@@ -3033,13 +2993,33 @@
 	)
 	(wire
 		(pts
-			(xy 168.91 151.13) (xy 180.34 151.13)
+			(xy 180.34 78.74) (xy 180.34 106.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4146b723-505a-4acd-b68e-726ec720277c")
+	)
+	(wire
+		(pts
+			(xy 165.1 156.21) (xy 180.34 156.21)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "4260c49f-0d9f-4633-8ec7-5ba04a4072fa")
+	)
+	(wire
+		(pts
+			(xy 165.1 135.89) (xy 165.1 133.35)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "459d2f35-658b-4778-9568-3cd64ff24189")
 	)
 	(wire
 		(pts
@@ -3063,6 +3043,16 @@
 	)
 	(wire
 		(pts
+			(xy 158.75 100.33) (xy 142.24 100.33)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4952b8dc-cc85-4067-b43d-bd5971c17353")
+	)
+	(wire
+		(pts
 			(xy 240.03 73.66) (xy 240.03 76.2)
 		)
 		(stroke
@@ -3073,17 +3063,7 @@
 	)
 	(wire
 		(pts
-			(xy 222.25 138.43) (xy 222.25 143.51)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4c1c2632-5a25-403c-ab1c-c38ffe5f134c")
-	)
-	(wire
-		(pts
-			(xy 163.83 119.38) (xy 223.52 119.38)
+			(xy 165.1 119.38) (xy 223.52 119.38)
 		)
 		(stroke
 			(width 0)
@@ -3103,7 +3083,7 @@
 	)
 	(wire
 		(pts
-			(xy 170.18 71.12) (xy 180.34 71.12)
+			(xy 167.64 78.74) (xy 180.34 78.74)
 		)
 		(stroke
 			(width 0)
@@ -3213,7 +3193,7 @@
 	)
 	(wire
 		(pts
-			(xy 227.33 62.23) (xy 165.1 62.23)
+			(xy 227.33 62.23) (xy 167.64 62.23)
 		)
 		(stroke
 			(width 0)
@@ -3223,7 +3203,7 @@
 	)
 	(wire
 		(pts
-			(xy 121.92 80.01) (xy 121.92 129.54)
+			(xy 121.92 80.01) (xy 121.92 128.27)
 		)
 		(stroke
 			(width 0)
@@ -3260,6 +3240,16 @@
 			(type default)
 		)
 		(uuid "67a21c28-717a-4376-b36e-740d932f7743")
+	)
+	(wire
+		(pts
+			(xy 165.1 143.51) (xy 222.25 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "67d3674b-fdd5-4129-ad7b-ae2e59272cf7")
 	)
 	(wire
 		(pts
@@ -3353,6 +3343,16 @@
 	)
 	(wire
 		(pts
+			(xy 180.34 53.34) (xy 180.34 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "763d6094-fe4e-44e7-b7e9-aedf5ed81dfc")
+	)
+	(wire
+		(pts
 			(xy 227.33 45.72) (xy 240.03 45.72)
 		)
 		(stroke
@@ -3363,6 +3363,16 @@
 	)
 	(wire
 		(pts
+			(xy 142.24 151.13) (xy 157.48 151.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "77713cfe-0a42-454c-9aa7-af61c72a034e")
+	)
+	(wire
+		(pts
 			(xy 76.2 38.1) (xy 76.2 55.88)
 		)
 		(stroke
@@ -3370,6 +3380,16 @@
 			(type default)
 		)
 		(uuid "7ade0c18-8bbc-4eb0-9938-7b63251b37bd")
+	)
+	(wire
+		(pts
+			(xy 142.24 128.27) (xy 157.48 128.27)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7cc15259-e781-4b7e-a39a-6381d3d9bd94")
 	)
 	(wire
 		(pts
@@ -3423,7 +3443,7 @@
 	)
 	(wire
 		(pts
-			(xy 161.29 91.44) (xy 161.29 92.71)
+			(xy 166.37 91.44) (xy 166.37 95.25)
 		)
 		(stroke
 			(width 0)
@@ -3473,7 +3493,7 @@
 	)
 	(wire
 		(pts
-			(xy 168.91 129.54) (xy 180.34 129.54)
+			(xy 165.1 135.89) (xy 180.34 135.89)
 		)
 		(stroke
 			(width 0)
@@ -3583,26 +3603,6 @@
 	)
 	(wire
 		(pts
-			(xy 142.24 71.12) (xy 160.02 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a48ff38e-3f2f-40ad-a95d-87940b3436c3")
-	)
-	(wire
-		(pts
-			(xy 180.34 53.34) (xy 180.34 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a6d81c12-2852-4acb-b288-2234fdfc0802")
-	)
-	(wire
-		(pts
 			(xy 267.97 45.72) (xy 267.97 73.66)
 		)
 		(stroke
@@ -3693,6 +3693,26 @@
 	)
 	(wire
 		(pts
+			(xy 165.1 119.38) (xy 165.1 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "baedc09e-6f1a-4547-8f05-8fc9651f1198")
+	)
+	(wire
+		(pts
+			(xy 166.37 106.68) (xy 166.37 105.41)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "be1257e8-656c-408d-80b7-549870b85fd8")
+	)
+	(wire
+		(pts
 			(xy 222.25 125.73) (xy 240.03 125.73)
 		)
 		(stroke
@@ -3733,16 +3753,6 @@
 	)
 	(wire
 		(pts
-			(xy 163.83 119.38) (xy 163.83 121.92)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c190a6cd-3157-4264-aa3a-34afc9498bb7")
-	)
-	(wire
-		(pts
 			(xy 81.28 44.45) (xy 81.28 59.69)
 		)
 		(stroke
@@ -3780,6 +3790,26 @@
 			(type default)
 		)
 		(uuid "c605608a-9246-45e6-bf6f-e0b7dd436c68")
+	)
+	(wire
+		(pts
+			(xy 180.34 156.21) (xy 180.34 160.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c7537541-215e-4e4d-8c72-fd7aa40fc6ca")
+	)
+	(wire
+		(pts
+			(xy 167.64 78.74) (xy 167.64 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c8e61286-6f04-4c15-a8c3-85e138e237a9")
 	)
 	(wire
 		(pts
@@ -3833,7 +3863,7 @@
 	)
 	(wire
 		(pts
-			(xy 224.79 91.44) (xy 161.29 91.44)
+			(xy 224.79 91.44) (xy 166.37 91.44)
 		)
 		(stroke
 			(width 0)
@@ -3843,13 +3873,13 @@
 	)
 	(wire
 		(pts
-			(xy 142.24 151.13) (xy 158.75 151.13)
+			(xy 165.1 143.51) (xy 165.1 146.05)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "d5d07325-689f-41f3-a5ec-a52d66655287")
+		(uuid "d24cdca2-975a-4db8-bc9a-ac8f6a25bf41")
 	)
 	(wire
 		(pts
@@ -3893,7 +3923,7 @@
 	)
 	(wire
 		(pts
-			(xy 165.1 62.23) (xy 165.1 63.5)
+			(xy 167.64 62.23) (xy 167.64 66.04)
 		)
 		(stroke
 			(width 0)
@@ -3933,16 +3963,6 @@
 	)
 	(wire
 		(pts
-			(xy 180.34 100.33) (xy 180.34 129.54)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e0ce4375-c9d5-432f-8dac-b77b94620783")
-	)
-	(wire
-		(pts
 			(xy 118.11 25.4) (xy 118.11 52.07)
 		)
 		(stroke
@@ -3960,6 +3980,16 @@
 			(type default)
 		)
 		(uuid "e3bcdc2b-4776-40a5-9433-c84f2d6ceb87")
+	)
+	(wire
+		(pts
+			(xy 222.25 138.43) (xy 222.25 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e3e6a0d6-1d40-45b9-a08b-7252943ed553")
 	)
 	(wire
 		(pts
@@ -3993,6 +4023,16 @@
 	)
 	(wire
 		(pts
+			(xy 180.34 106.68) (xy 180.34 135.89)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e9fd7526-63a6-48ad-99e4-f13f600b77fd")
+	)
+	(wire
+		(pts
 			(xy 267.97 73.66) (xy 267.97 101.6)
 		)
 		(stroke
@@ -4003,7 +4043,7 @@
 	)
 	(wire
 		(pts
-			(xy 121.92 129.54) (xy 134.62 129.54)
+			(xy 121.92 128.27) (xy 134.62 128.27)
 		)
 		(stroke
 			(width 0)
@@ -4053,13 +4093,13 @@
 	)
 	(wire
 		(pts
-			(xy 163.83 143.51) (xy 222.25 143.51)
+			(xy 160.02 71.12) (xy 142.24 71.12)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "fad62723-62b0-44bd-9869-f7e74ce56ca4")
+		(uuid "fcbfaf33-7c41-4b59-adc7-316c130180bf")
 	)
 	(wire
 		(pts
@@ -4796,7 +4836,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Motor_DC"
+		(property "Value" "Sirup a"
 			(at 245.11 57.1499 0)
 			(effects
 				(font
@@ -4917,7 +4957,7 @@
 	)
 	(symbol
 		(lib_id "Transistor_FET:IRLZ44N")
-		(at 161.29 97.79 270)
+		(at 163.83 100.33 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4926,23 +4966,25 @@
 		(fields_autoplaced yes)
 		(uuid "65cc9e02-ba0e-45b6-8366-b99ace3bfb76")
 		(property "Reference" "Q3"
-			(at 161.29 104.14 90)
+			(at 170.18 99.0599 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Value" "IRLZ44N"
-			(at 161.29 106.68 90)
+			(at 170.18 101.5999 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_THT:TO-220-3_Vertical"
-			(at 159.385 102.87 0)
+			(at 168.91 102.235 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4953,7 +4995,7 @@
 			)
 		)
 		(property "Datasheet" "http://www.irf.com/product-info/datasheets/data/irlz44n.pdf"
-			(at 157.48 102.87 0)
+			(at 168.91 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4963,7 +5005,7 @@
 			)
 		)
 		(property "Description" "47A Id, 55V Vds, 22mOhm Rds Single N-Channel HEXFET Power MOSFET, TO-220AB"
-			(at 161.29 97.79 0)
+			(at 163.83 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5061,7 +5103,7 @@
 	)
 	(symbol
 		(lib_id "Transistor_FET:IRLZ44N")
-		(at 163.83 127 270)
+		(at 162.56 128.27 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5070,23 +5112,25 @@
 		(fields_autoplaced yes)
 		(uuid "6ae1b69c-e8c0-4b47-b650-77cf5573181a")
 		(property "Reference" "Q4"
-			(at 163.83 133.35 90)
+			(at 168.91 126.9999 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Value" "IRLZ44N"
-			(at 163.83 135.89 90)
+			(at 168.91 129.5399 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_THT:TO-220-3_Vertical"
-			(at 161.925 132.08 0)
+			(at 167.64 130.175 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5097,7 +5141,7 @@
 			)
 		)
 		(property "Datasheet" "http://www.irf.com/product-info/datasheets/data/irlz44n.pdf"
-			(at 160.02 132.08 0)
+			(at 167.64 132.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5107,7 +5151,7 @@
 			)
 		)
 		(property "Description" "47A Id, 55V Vds, 22mOhm Rds Single N-Channel HEXFET Power MOSFET, TO-220AB"
-			(at 163.83 127 0)
+			(at 162.56 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5203,7 +5247,7 @@
 	)
 	(symbol
 		(lib_id "Transistor_FET:IRLZ44N")
-		(at 165.1 68.58 270)
+		(at 165.1 71.12 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5212,23 +5256,25 @@
 		(fields_autoplaced yes)
 		(uuid "79f21bd5-9132-45a8-95c8-404c75b09c58")
 		(property "Reference" "Q2"
-			(at 165.1 74.93 90)
+			(at 171.45 69.8499 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Value" "IRLZ44N"
-			(at 165.1 77.47 90)
+			(at 171.45 72.3899 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_THT:TO-220-3_Vertical"
-			(at 163.195 73.66 0)
+			(at 170.18 73.025 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5239,7 +5285,7 @@
 			)
 		)
 		(property "Datasheet" "http://www.irf.com/product-info/datasheets/data/irlz44n.pdf"
-			(at 161.29 73.66 0)
+			(at 170.18 74.93 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5249,7 +5295,7 @@
 			)
 		)
 		(property "Description" "47A Id, 55V Vds, 22mOhm Rds Single N-Channel HEXFET Power MOSFET, TO-220AB"
-			(at 165.1 68.58 0)
+			(at 165.1 71.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5546,7 +5592,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Motor_DC"
+		(property "Value" "Sirup b"
 			(at 245.11 85.0899 0)
 			(effects
 				(font
@@ -5755,7 +5801,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Motor_DC"
+		(property "Value" "Sirup c"
 			(at 245.11 113.0299 0)
 			(effects
 				(font
@@ -5942,7 +5988,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 138.43 129.54 90)
+		(at 138.43 128.27 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5951,7 +5997,7 @@
 		(fields_autoplaced yes)
 		(uuid "ababdc96-a466-4d0f-b60e-9691513d6a94")
 		(property "Reference" "R9"
-			(at 138.43 123.19 90)
+			(at 138.43 121.92 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5959,7 +6005,7 @@
 			)
 		)
 		(property "Value" "330"
-			(at 138.43 125.73 90)
+			(at 138.43 124.46 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5967,7 +6013,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 138.43 131.318 90)
+			(at 138.43 130.048 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5976,7 +6022,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 138.43 129.54 0)
+			(at 138.43 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5985,7 +6031,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 138.43 129.54 0)
+			(at 138.43 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6435,7 +6481,7 @@
 	)
 	(symbol
 		(lib_id "Transistor_FET:IRLZ44N")
-		(at 163.83 148.59 270)
+		(at 162.56 151.13 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6444,23 +6490,25 @@
 		(fields_autoplaced yes)
 		(uuid "dbade1b2-3543-46e0-aae5-1e1e8ddba076")
 		(property "Reference" "Q5"
-			(at 163.83 154.94 90)
+			(at 168.91 149.8599 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Value" "IRLZ44N"
-			(at 163.83 157.48 90)
+			(at 168.91 152.3999 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_THT:TO-220-3_Vertical"
-			(at 161.925 153.67 0)
+			(at 167.64 153.035 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6471,7 +6519,7 @@
 			)
 		)
 		(property "Datasheet" "http://www.irf.com/product-info/datasheets/data/irlz44n.pdf"
-			(at 160.02 153.67 0)
+			(at 167.64 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6481,7 +6529,7 @@
 			)
 		)
 		(property "Description" "47A Id, 55V Vds, 22mOhm Rds Single N-Channel HEXFET Power MOSFET, TO-220AB"
-			(at 163.83 148.59 0)
+			(at 162.56 151.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6592,7 +6640,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Motor_DC"
+		(property "Value" "Wasser"
 			(at 245.11 33.0199 0)
 			(effects
 				(font
@@ -6662,7 +6710,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Motor_DC"
+		(property "Value" "Alkohol"
 			(at 245.11 137.1599 0)
 			(effects
 				(font

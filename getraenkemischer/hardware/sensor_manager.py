@@ -11,7 +11,6 @@ Klassen:
         - read_sensors() (gibt dict zurücj mit Zuordnung Pumpe:Pin)
 '''
 from config import SENSOR_PINS
-from machine import Pin
 
 class SensorManager:
     def __init__(self):
@@ -19,7 +18,7 @@ class SensorManager:
         # Zuordnung der Behälter zu den Pins
         self.sensor_pins = SENSOR_PINS
 
-    # ordnet den Sensoren in einem Dictionary voll oder leer zu
+    # ordnet den Sensoren in einem Dictionary den Füllstand zu
     def read_sensors(self):
         results = {}
         for name, pin in self.sensor_pins.items():
