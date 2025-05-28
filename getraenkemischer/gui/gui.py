@@ -155,14 +155,14 @@ class BeverageGUI:
             self.bewertungen.append({"getränk": self.letztes_getraenk, "bewertung": "like"})
             self.text_output.insert(tk.END, f" '{self.letztes_getraenk}' wurde mit LIKE bewertet.\n")
         else:
-            self.text_output.insert(tk.END, "⚠️ Kein Getränk zum Bewerten ausgewählt.\n")
+            self.text_output.insert(tk.END, "Kein Getränk zum Bewerten ausgewählt.\n")
 
     def dislike_drink(self):
         if self.letztes_getraenk:
             self.bewertungen.append({"getränk": self.letztes_getraenk, "bewertung": "dislike"})
             self.text_output.insert(tk.END, f" '{self.letztes_getraenk}' wurde mit DISLIKE bewertet.\n")
         else:
-            self.text_output.insert(tk.END, "⚠️ Kein Getränk zum Bewerten ausgewählt.\n")
+            self.text_output.insert(tk.END, " Kein Getränk zum Bewerten ausgewählt.\n")
         
 
 # --- Programmstart ---
