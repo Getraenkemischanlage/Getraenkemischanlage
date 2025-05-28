@@ -59,6 +59,9 @@ class BeverageGUI:
         self.fill_levels = self.sensor_manager.read_fill_levels()
         self.logic = DrinkSuggestion(self.fill_levels.copy())
 
+        self.bewertung = []             #Bewertung speichern
+        self.letztes_getraenk = None    #Zuletzt gemixtes Getränk
+
         self.text_output = tk.Text(root, height=6, width=50)
         self.text_output.pack(padx=10, pady=10)
 
@@ -70,6 +73,12 @@ class BeverageGUI:
 
         self.suggest_button = tk.Button(root, text="Bestes Getränk vorschlagen", command=self.suggest_best)
         self.suggest_button.pack(pady=10)
+        #Like/Dislike Buttons
+        self.like_button = tk.Button(root, text="👍 Like", commans=self.dislike_drink)
+        self.like_button.pack(pady=2)
+
+        self.dislike_button = tk.Button(root, text="👎 Dislike", command=self.dislike_drink)
+        self.dislike_button.pack(pady=2)
 
         tk.Button(root, text="NOT-AUS", command=self.emergency_stop, bg="white", fg="red").pack(pady=10)
         tk.Button(root, text="NOT-AUS zurücksetzen", command=self.reset_emergency_stop, bg="white", fg="green").pack(pady=5)
@@ -140,6 +149,20 @@ class BeverageGUI:
         self.suggest_button.config(state="normal")
         self.text_output.delete("1.0", tk.END)
         self.text_output.insert(tk.END, "NOT-AUS zurückgesetzt. System wieder aktiv.\n")
+
+    def like_drink(self):
+        if self.letztes_getraenk:
+            self.bewertungen.append({"getränk": self.letztes_getraenk, "bewertung": "like"})
+            self.text_output.insert(tk.END, f"✅ '{self.letztes_getraenk}' wurde mit LIKE bewertet.\n")
+        else:
+            self.text_output.insert(tk.END, "⚠️ Kein Getränk zum Bewerten ausgewählt.\n")
+
+    def dislike_drink(self):
+        if self.letztes_getraenk:
+            self.bewertungen.append({"getränk": self.letztes_getraenk, "bewertung": "dislike"})
+            self.text_output.insert(tk.END, f"❌ '{self.letztes_getraenk}' wurde mit DISLIKE bewertet.\n")
+        else:
+            self.text_output.insert(tk.END, "⚠️ Kein Getränk zum Bewerten ausgewählt.\n")
         
 
 # --- Programmstart ---
