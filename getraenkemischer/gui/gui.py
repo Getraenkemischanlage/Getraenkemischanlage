@@ -15,7 +15,7 @@ class SensorManager:
         return self.levels.copy()
 
 # --- Dummy BeverageSuggestion Klasse ---
-class BeverageSuggestion:
+class DrinkSuggestion:
     def __init__(self, fill_levels):
         self.fill_levels = fill_levels
         self.target_volume_ml = 200
@@ -56,7 +56,7 @@ class BeverageGUI:
 
         self.sensor_manager = SensorManager()
         self.fill_levels = self.sensor_manager.read_fill_levels()
-        self.logic = BeverageSuggestion(self.fill_levels.copy())
+        self.logic = DrinkSuggestion(self.fill_levels.copy())
 
         self.text_output = tk.Text(root, height=6, width=50)
         self.text_output.pack(padx=10, pady=10)
@@ -67,7 +67,11 @@ class BeverageGUI:
         self.buttons = {}
         self.create_drink_buttons()
 
-        tk.Button(root, text="Bestes Getränk vorschlagen", command=self.suggest_best).pack(pady=10)
+        self.suggest_button = tk.Button(root, text="Bestes Getränk vorschlagen", command=self.suggest_best)
+        self.suggest_button.pack(pady=10)
+
+        tk.Button(root, text="NOT-AUS", command=self.emergency_stop, bg="white", fg="red").pack(pady=10)
+        tk.Button(root, text="NOT-AUS zurücksetzen", command=self.reset_emergency_stop, bg="white", fg="green").pack(pady=5)
 
         self.update_gui()
 
@@ -99,7 +103,7 @@ class BeverageGUI:
 
     def update_gui(self):
         self.fill_levels = self.sensor_manager.read_fill_levels()
-        self.logic = BeverageSuggestion(self.fill_levels.copy())
+        self.logic = DrinkSuggestion(self.fill_levels.copy())
         self.update_progress_bars()
         self.update_button_states()
 
@@ -118,8 +122,29 @@ class BeverageGUI:
         self.text_output.insert(tk.END, result)
         self.update_gui()
 
+    def emergency_stop(self):
+    #Alle Getränkeknöpfe deaktivieren
+        for button in self.buttons.values():
+            button.config(state="disabled")
+
+    #Getränk vorschlagen deaktivieren
+        self.suggest_button.config(state="disabled")
+
+    #Textausgabe aktualisieren
+        self.text_output.delete("1.0", tk.END)
+        self.text_output.insert(tk.END, "NOT-AUS aktiviert. Alle Pumpen gestoppt.\n")
+    
+    def reset_emergency_stop(self):
+        self.update_button_states()
+        self.suggest_button.config(state="normal")
+        self.text_output.delete("1.0", tk.END)
+        self.text_output.insert(tk.END, "NOT-AUS zurückgesetzt. System wieder aktiv.\n")
+        
+
 # --- Programmstart ---
 if __name__ == "__main__":
     root = tk.Tk()
     app = BeverageGUI(root)
     root.mainloop()
+
+    
