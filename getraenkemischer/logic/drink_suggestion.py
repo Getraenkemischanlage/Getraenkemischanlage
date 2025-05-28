@@ -60,5 +60,5 @@ class DrinkSuggestion:
 sensor_manager = SensorManager()
 current_fill_levels = sensor_manager.read_sensors()
 
-mixer = BeverageSuggestion(current_fill_levels)
+mixer = DrinkSuggestion(current_fill_levels)
 mixer.suggest_best_drink()
