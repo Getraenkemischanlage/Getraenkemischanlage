@@ -111,11 +111,11 @@ class BeverageGUI:
     def mix_drink(self, drink_name):
         self.text_output.delete("1.0", tk.END)
         if drink_name in self.logic.recipe_manager.recipes:
-            self.logic.apply_recipe(drink_name)
-            self.text_output.insert(tk.END, f"{drink_name} wurde gemischt ({self.logic.target_volume_ml} ml)\n")
+            result = self.logic.apply_recipe(drink_name)
+            self.text_output.insert(tk.END, result)
         else:
             self.text_output.insert(tk.END, "Rezept nicht vorhanden.\n")
-        self.update_gui()
+            self.update_gui()
 
     def suggest_best(self):
         self.text_output.delete("1.0", tk.END)
