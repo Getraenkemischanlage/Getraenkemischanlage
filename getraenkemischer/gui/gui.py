@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from logic.drink_suggestion import DrinkSuggestion
 
 # --- Dummy SensorManager Klasse ---
 class SensorManager:
@@ -15,7 +16,7 @@ class SensorManager:
         return self.levels.copy()
 
 # --- Dummy BeverageSuggestion Klasse ---
-class DrinkSuggestion:
+'''class DrinkSuggestion:
     def __init__(self, fill_levels):
         self.fill_levels = fill_levels
         self.target_volume_ml = 200
@@ -47,7 +48,7 @@ class DrinkSuggestion:
                 max_vol = vol
                 best = name
         return f"Empfohlenes Getränk: {best} ({max_vol} ml)\n" if best else "Kein geeignetes Getränk gefunden.\n"
-
+'''
 # --- GUI Klasse ---
 class BeverageGUI:
     def __init__(self, root):
@@ -86,7 +87,7 @@ class BeverageGUI:
             self.progress_bars[ingredient] = bar
 
     def create_drink_buttons(self):
-        for drink in self.logic.recipes.keys():
+        for drink in self.logic.recipe_manager.recipes.keys():
             btn = tk.Button(self.root, text=drink, width=25,
                             command=lambda d=drink: self.mix_drink(d))
             btn.pack(pady=2)
@@ -98,7 +99,7 @@ class BeverageGUI:
 
     def update_button_states(self):
         for drink, button in self.buttons.items():
-            volume = self.logic.max_mixable_volume_ml(self.logic.recipes[drink])
+            volume = self.logic.max_mixable_volume_ml(self.logic.recipe_manager.recipes[drink])
             button.config(state="normal" if volume >= self.logic.target_volume_ml else "disabled")
 
     def update_gui(self):
@@ -109,7 +110,7 @@ class BeverageGUI:
 
     def mix_drink(self, drink_name):
         self.text_output.delete("1.0", tk.END)
-        if drink_name in self.logic.recipes:
+        if drink_name in self.logic.recipe_manager.recipes:
             self.logic.apply_recipe(drink_name)
             self.text_output.insert(tk.END, f"{drink_name} wurde gemischt ({self.logic.target_volume_ml} ml)\n")
         else:
@@ -147,4 +148,3 @@ if __name__ == "__main__":
     app = BeverageGUI(root)
     root.mainloop()
 
-    
