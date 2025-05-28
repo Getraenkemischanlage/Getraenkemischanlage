@@ -18,23 +18,20 @@ class SensorManager:
         # Zuordnung der Behälter zu den Pins
         self.sensor_pins = SENSOR_PINS
 
-    # ordnet den Sensoren in einem Dictionary den Füllstand zu
-    def read_sensors(self):
+    '''
+    def read_sensors(self):                     # ordnet den Sensoren in einem Dictionary den Füllstand zu
         results = {}
         for name, pin in self.sensor_pins.items():
             results[name] = pin.value()  # 1 = voll, 0 = leer
         return results
+    '''
     
-    def leere_behaelter(self):
-        """
-        Rückgabe: Liste aller leeren Behälter
-        """
+    def leere_behaelter(self):          #Rückgabe: Liste aller leeren Behälter
+        
         return [name for name, val in self.read_sensors().items() if val == 0]
 
-    def print_sensor_status(self):
-        """
-        Gibt den aktuellen Zustand der Sensoren lesbar aus
-        """
+    def print_sensor_status(self):      # Gibt den aktuellen Zustand der Sensoren lesbar aus
+        
         status = self.get_status_strings()
         for name, zustand in status.items():
             print(f"{name}: {zustand}")
