@@ -1,6 +1,5 @@
 from hardware.sensor_manager import SensorManager
 from recipe_manager import RecipeManager
-# Änderung: Rezepte sind jetzt in extra Datei recipe_manager
 
 class DrinkSuggestion:
     def __init__(self, fill_levels):
@@ -10,24 +9,16 @@ class DrinkSuggestion:
         """
         self.fill_levels = fill_levels
 
-        # Rezepte mit festem Volumen (z. B. 200 ml).
-        self.target_volume_ml = 200
+        self.target_volume_ml = 200 # Zielmenge in ml
 
-        # hier statt Dictionary mit Rezepten:
-        # self.recipe_manager = RecipeManager()
-        self.recipes = {
-            "Cola-Mix":         {"Wasser": 0.3, "Sirup_a": 0.7,},
-            "Cocktail":         {"Alkohol": 0.4, "Sirup_b": 0.2, "Wasser": 0.4},
-            "Schorle":          {"Wasser": 0.5, "Sirup_b": 0.5},
-            "Cola-Light Mix":   {"Wasser": 0.7, "Sirup_a": 0.3}
-        }
+        self.recipe_manager = RecipeManager()   # holt Rezepte
+        
      
     def suggest_best_drink(self):
         best_drink = None
         max_possible_volume = 0
 
-        # for name in self.recipe_manager.get_all_recipe_names():
-        for name, ingredients in self.recipes.items():
+        for name, ingredients in self.recipe_manager.get_all_recipes().items():
             volume = self.max_mixable_volume_ml(ingredients)
             if volume >= self.target_volume_ml and volume > max_possible_volume:
                 best_drink = name
@@ -46,12 +37,13 @@ class DrinkSuggestion:
         max_volume = float('inf')
         for ingredient, fraction in recipe.items():
             available = self.fill_levels.get(ingredient, 0)
-            possible_volume = available / fraction
-            max_volume = min(max_volume, possible_volume)
+            if fraction > 0:
+                possible_volume = available / fraction
+                max_volume = min(max_volume, possible_volume)
         return max_volume
 
     def apply_recipe(self, recipe_name):
-        recipe = self.recipes[recipe_name]
+        recipe = self.recipe_manager.get_recipe(recipe_name)
         print(f"\nMische {self.target_volume_ml} ml {recipe_name}...")
         for ingredient, fraction in recipe.items():
             needed = self.target_volume_ml * fraction
@@ -60,5 +52,5 @@ class DrinkSuggestion:
 sensor_manager = SensorManager()
 current_fill_levels = sensor_manager.read_sensors()
 
-mixer = DrinkSuggestion(current_fill_levels)
-mixer.suggest_best_drink()
+suggestion = DrinkSuggestion(current_fill_levels)
+suggestion.suggest_best_drink()
