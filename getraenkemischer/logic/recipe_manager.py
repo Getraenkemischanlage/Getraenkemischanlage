@@ -4,7 +4,7 @@ Rezeptverwaltung
 Klassen:
 - Recipe Manager
     Klassenobjekte:
-    -   reciped: dict
+    -   recipe: dict
     Klassenmethoden:
     - __init__()
     - get_all_recipes()     (gibt alle Rezepte zurück)

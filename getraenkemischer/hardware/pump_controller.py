@@ -13,31 +13,19 @@ Klassen:
     - __init__()
     - dispense(ingredient: str, amount_ml: float)
 
-Anschlüsse der Pumpen an den Raspberry Pi:
-- Pumpe 1: GP 22
-- Pumpe 2: GP 21
-- Pumpe 3: GP 20
-- Pumpe 4: GP 19
-- Pumpe 5: GP 18
 
 '''
+from config import PUMP_PINS, FLOW_RATE
 from machine import Pin
 import time
 
 class PumpController:
     def __init__(self):       
-        # Zuordnung der Pumpen zu den Pins
-        self.pump_pins = {
-            "Wasser": 1,     
-            "Sirup_a": 21,    
-            "Sirup_b": 20,    
-            "Sirup_c": 19,
-            "Alkohol": 18     
-        }
+        self.pump_pins = PUMP_PINS  # Zuordnung der Pumpen zu den Pins
 
-        self.flow_rate_ml_per_sec = 10  # Durchflussrate: z. B. 10 ml/s
+        self.flow_rate_ml_per_sec = FLOW_RATE  # Durchflussrate: z. B. 10 ml/s
 
-        self.pumps = {}                 # Dictionary mit Pumpen der verschiedenen Behältern und zugeordneten Pins
+        self.pumps = {} # Dictionary mit Pumpen der verschiedenen Behältern und zugeordneten Pins
 
         
         #Initialisiert alle Pumpen-Pins als Ausgang

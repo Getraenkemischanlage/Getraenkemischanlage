@@ -1,3 +1,17 @@
+'''
+Klassen:
+- DrinkSuggestion
+    Klassenobjekte:
+    - fill_levels: dict
+    - target_volume_ml: int
+    - recipe_manager: RecipeManager
+    Klassenmethoden:
+    - __init__(fill_levels: dict)
+    - suggest_best_drink(): None
+    - max_mixable_volume_ml(recipe: dict)   (gibt float zurürck)
+    - apply_recipe(recipe_name: str): None
+'''
+
 from hardware.sensor_manager import SensorManager
 from recipe_manager import RecipeManager
 
