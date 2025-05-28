@@ -59,7 +59,7 @@ class BeverageGUI:
         self.fill_levels = self.sensor_manager.read_fill_levels()
         self.logic = DrinkSuggestion(self.fill_levels.copy())
 
-        self.bewertung = []             #Bewertung speichern
+        self.bewertungen = []             #Bewertung speichern
         self.letztes_getraenk = None    #Zuletzt gemixtes Getränk
 
         self.text_output = tk.Text(root, height=6, width=50)
@@ -153,14 +153,14 @@ class BeverageGUI:
     def like_drink(self):
         if self.letztes_getraenk:
             self.bewertungen.append({"getränk": self.letztes_getraenk, "bewertung": "like"})
-            self.text_output.insert(tk.END, f"✅ '{self.letztes_getraenk}' wurde mit LIKE bewertet.\n")
+            self.text_output.insert(tk.END, f" '{self.letztes_getraenk}' wurde mit LIKE bewertet.\n")
         else:
             self.text_output.insert(tk.END, "⚠️ Kein Getränk zum Bewerten ausgewählt.\n")
 
     def dislike_drink(self):
         if self.letztes_getraenk:
             self.bewertungen.append({"getränk": self.letztes_getraenk, "bewertung": "dislike"})
-            self.text_output.insert(tk.END, f"❌ '{self.letztes_getraenk}' wurde mit DISLIKE bewertet.\n")
+            self.text_output.insert(tk.END, f" '{self.letztes_getraenk}' wurde mit DISLIKE bewertet.\n")
         else:
             self.text_output.insert(tk.END, "⚠️ Kein Getränk zum Bewerten ausgewählt.\n")
         
