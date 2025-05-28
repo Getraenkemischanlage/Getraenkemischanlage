@@ -39,13 +39,14 @@ class DrinkSuggestion:
                 max_possible_volume = volume
 
         if best_drink:
-            print(f"Empfohlenes Getränk: {best_drink} (max. {int(max_possible_volume)} ml mischbar)")
             self.apply_recipe(best_drink)
-            print("\nAktueller Füllstand nach Mischung:")
+            status = f"Empfohlenes Getränk: {best_drink} (max. {int(max_possible_volume)} ml mischbar)\n"
+            status += "\nAktueller Füllstand nach Mischung:\n"
             for k, v in self.fill_levels.items():
-                print(f"  {k}: {int(v)} ml")
+                status += f"  {k}: {int(v)} ml\n"
+            return status
         else:
-            print("Kein Getränk mischbar mit aktuellem Füllstand.")
+            return "Kein Getränk mischbar mit aktuellem Füllstand.\n"
 
     def max_mixable_volume_ml(self, recipe):
         max_volume = float('inf')
@@ -58,10 +59,14 @@ class DrinkSuggestion:
 
     def apply_recipe(self, recipe_name):
         recipe = self.recipe_manager.get_recipe(recipe_name)
-        print(f"\nMische {self.target_volume_ml} ml {recipe_name}...")
+        if not recipe:
+            return f"Rezept '{recipe_name}' nicht gefunden.\n"
+
         for ingredient, fraction in recipe.items():
             needed = self.target_volume_ml * fraction
             self.fill_levels[ingredient] -= needed
+
+        return f"{recipe_name} wurde gemischt ({self.target_volume_ml} ml).\n"
 
 sensor_manager = SensorManager()
 current_fill_levels = sensor_manager.read_sensors()
