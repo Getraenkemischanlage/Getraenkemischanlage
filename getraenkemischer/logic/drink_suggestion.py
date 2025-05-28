@@ -17,11 +17,8 @@ from recipe_manager import RecipeManager
 
 class DrinkSuggestion:
     def __init__(self, fill_levels):
-        """
-        fill_levels: dict mit Füllständen in Milliliter
-        Beispiel: {"Wasser": 800, "Sirup_a": 500, "Sirup_b": 200, "Alkohol": 300}
-        """
-        self.fill_levels = fill_levels
+        
+        self.fill_levels = fill_levels  # Füllstände 
 
         self.target_volume_ml = 200 # Zielmenge in ml
 
