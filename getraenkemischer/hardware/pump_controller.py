@@ -16,7 +16,6 @@ Klassen:
 
 '''
 from config import PUMP_PINS, FLOW_RATE
-import time
 
 class PumpController:
     def __init__(self):       

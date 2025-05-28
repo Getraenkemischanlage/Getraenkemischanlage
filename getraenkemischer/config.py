@@ -30,14 +30,14 @@ PUMP_PINS = {
 
 # GPIO-Zuordnung der Sensoren
 SENSOR_PINS = {
-            "Wasser":  Pin(1, Pin.IN),   # Sensor an GPIO 0
-            "Sirup_a": Pin(2, Pin.IN),   # Sensor an GPIO 1
-            "Sirup_b": Pin(4, Pin.IN),   # Sensor an GPIO 2
-            "Sirup_c": Pin(5, Pin.IN),   # Sensor an GPIO 3
-            "Alkohol": Pin(6, Pin.IN)    # Sensor an GPIO 4
+            "Wasser":  Pin(1, Pin.IN),   
+            "Sirup_a": Pin(2, Pin.IN),   
+            "Sirup_b": Pin(4, Pin.IN),   
+            "Sirup_c": Pin(5, Pin.IN),  
+            "Alkohol": Pin(6, Pin.IN)    
         }
 
     
-FLOW_RATE = 10  # ml/sec
+FLOW_RATE = 10                  # Fördermenge pro Pumpe in ml/s
 
-target_volume = 200 # Zielmenge in ml
+target_volume = 200             # Zielmenge in ml
