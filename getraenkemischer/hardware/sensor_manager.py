@@ -15,12 +15,13 @@ Klassen:
         - read_sensors() (gibt dict zurücj mit Zuordnung Pumpe:Pin)
         - calculate_fill_level
 '''
+
 from config import SENSOR_PINS
-from hx711 import HX711  # Stelle sicher, dass hx711.py im Projekt liegt oder installiert ist
+from hx711py-master.hx711 import HX711
 
 class SensorManager:
     def __init__(self):
-        self.sensor_pins = SENSOR_PINS  # Dict: Name -> (DT, SCK)
+        self.sensor_pins = SENSOR_PINS
         self.hx_sensors = {}
         for name, (dt, sck) in self.sensor_pins.items():
             self.hx_sensors[name] = HX711(dt, sck)

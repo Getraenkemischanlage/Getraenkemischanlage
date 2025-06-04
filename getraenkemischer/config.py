@@ -9,11 +9,8 @@ Anschlüsse der Pumpen an den Raspberry Pi:
 - Pumpe 5: GP 18
 
 Anschlüsse der Sensoren an den Raspberry Pi:
-- Sensor 1: GP 0
-- Sensor 2: GP 1
-- Sensor 3: GP 2
-- Sensor 4: GP 3
-- Sensor 5: GP 4
+- DT: GP 2
+- SCK: GP 3
 '''
 from machine import Pin
 
@@ -30,11 +27,7 @@ PUMP_PINS = {
 
 # GPIO-Zuordnung der Sensoren
 SENSOR_PINS = {
-            "Wasser":  Pin(1, Pin.IN),   
-            "Sirup_a": Pin(2, Pin.IN),   
-            "Sirup_b": Pin(4, Pin.IN),   
-            "Sirup_c": Pin(5, Pin.IN),  
-            "Alkohol": Pin(6, Pin.IN)    
+                
         }
 
     

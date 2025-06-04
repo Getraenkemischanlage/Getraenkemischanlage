@@ -22,7 +22,7 @@ sleep(1)
 
 
 
-'''
+
 while True:
     # Turn LEDs white
     for i in range (ledCount):
@@ -44,4 +44,4 @@ while True:
         led[i] = (0, 255, 0)
         led.write()
         sleep(1)
-        '''
+        
