@@ -38,5 +38,8 @@ print("Starte Messung...")
 
 while True:
     gewicht = hx.read()
-    print("Rohwert:", gewicht)
+    gewicht_in_gramm = gewicht / 1000
+    print(f"Gewicht in Gramm: {gewicht_in_gramm:.2f}")
     time.sleep(0.5)
+    
+
