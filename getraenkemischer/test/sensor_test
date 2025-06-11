@@ -1,0 +1,15 @@
+from hx711 import HX711
+from machine import Pin
+
+data_pin = Pin(2, Pin.IN, pull=Pin.PULL_DOWN)  # DOUT Pin
+clock_pin = Pin(3, Pin.OUT)  # SCK Pin
+
+hx711 = HX711(data_pin, clock_pin)
+
+while True:
+    weight = hx711.get_weight()
+    print(f"Gewicht: {weight:.2f} g")
+    hx711.power_down()  # Energiesparmodus
+    hx711.power_up()  # Aufwecken
+    hx711.tare_weight(5)  # Tare nach jedem Lesen
+    
