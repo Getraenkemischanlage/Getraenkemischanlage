@@ -1,55 +1,7 @@
-'''
-Klassen:
-- SensorManager
-    Klassenobjekte:
-        - levels: dict
-    Klassenmethoden:
-        - __init__()
-        - read_fill_levels(): dict (gibt dict mit Füllständen zurück)
-
-- DrinkSuggestion
-    Klassenobjekte:
-        - fill_levels: dict
-        - target_volume_ml: int
-        - recipes: dict
-    Klassenmethoden:
-        - __init__(fill_levels: dict)
-        - apply_recipe(drink_name: str): str (gibt Ergebnis der Rezeptanwendung zurück)
-        - max_mixable_volume_ml(recipe: dict): int (gibt maximal mixbares Volumen zurück)
-        - suggest_best_drink(): str (gibt das beste Getränk zurück)
-
-- BeverageGUI
-    Klassenobjekte:
-        - root: tk.Tk
-        - sensor_manager: SensorManager 
-        - fill_levels: dict
-        - logic: DrinkSuggestion
-        - bewertungen: list
-        - letztes_getraenk: str
-        - text_output: tk.Text
-        - progress_bars: dict
-        - buttons: dict
-        - suggest_button: tk.Button
-        - like_button: tk.Button
-        - dislike_button: tk.Button 
-    Klassenmethoden:
-        - __init__(root: tk.Tk)
-        - create_progress_bars()
-        - create_drink_buttons()
-        - update_progress_bars()
-        - update_button_states()
-        - update_gui()
-        - mix_drink(drink_name: str)
-        - suggest_best()
-        - emergency_stop()
-        - reset_emergency_stop()
-        - like_drink()
-        - dislike_drink()
-'''
-
-
 import tkinter as tk
 from tkinter import ttk
+
+from sensor_manager import SensorManager
 from logic.drink_suggestion import DrinkSuggestion
 
 # --- Dummy SensorManager Klasse ---
@@ -71,7 +23,7 @@ class SensorManager:
         self.fill_levels = fill_levels
         self.target_volume_ml = 200
         self.recipes = {
-            "Cola-Mix":         {"Wasser": 60, "Sirup_a": 140,},
+             "Cola-Mix":         {"Wasser": 60, "Sirup_a": 140,},
             "Cocktail":         {"Alkohol": 80, "Sirup_b": 40, "Wasser": 80},
             "Schorle":          {"Wasser": 100, "Sirup_b": 100},
             "Cola-Light Mix":   {"Wasser": 140, "Sirup_a": 60}
