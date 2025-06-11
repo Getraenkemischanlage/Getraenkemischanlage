@@ -118,8 +118,8 @@ class BeverageGUI:
         self.fill_levels = self.sensor_manager.read_fill_levels()
         self.logic = DrinkSuggestion(self.fill_levels.copy())
 
-        self.bewertungen = []             #Bewertung speichern
-        self.letztes_getraenk = None    #Zuletzt gemixtes Getränk
+        self.bewertungen = []             # Bewertung speichern
+        self.letztes_getraenk = None      # Zuletzt gemixtes Getränk
 
         self.text_output = tk.Text(root, height=6, width=50)
         self.text_output.pack(padx=10, pady=10)
