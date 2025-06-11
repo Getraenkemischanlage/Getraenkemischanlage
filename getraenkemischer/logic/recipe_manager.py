@@ -15,10 +15,10 @@ Klassen:
 class RecipeManager:
     def __init__(self):
         self.recipes = {
-            "Cola-Mix":         {"Wasser": 0.3, "Sirup_a": 0.7,},
-            "Cocktail":         {"Alkohol": 0.4, "Sirup_b": 0.2, "Wasser": 0.4},
-            "Schorle":          {"Wasser": 0.5, "Sirup_b": 0.5},
-            "Cola-Light Mix":   {"Wasser": 0.7, "Sirup_a": 0.3}
+            "Cola-Mix":         {"Wasser": 60, "Sirup_a": 140,},
+            "Cocktail":         {"Alkohol": 80, "Sirup_b": 40, "Wasser": 80},
+            "Schorle":          {"Wasser": 100, "Sirup_b": 100},
+            "Cola-Light Mix":   {"Wasser": 140, "Sirup_a": 60}
         }
 
     def get_all_recipes(self):
