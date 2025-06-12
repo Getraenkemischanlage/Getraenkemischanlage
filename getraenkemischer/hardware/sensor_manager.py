@@ -3,7 +3,6 @@ Funktion:
 - Liest die Sensoren ein 
 - Berechnet den Füllstand der Behälter
 - Gibt die Füllstände der Behälter zurück
-- Gibt die leeren Behälter zurück
 
 Klassen:
 - SensorManager
@@ -17,7 +16,6 @@ Klassen:
 '''
 
 from config import SENSOR_PINS
-from hx711py-master.hx711 import HX711
 
 class SensorManager:
     def __init__(self):
@@ -42,10 +40,3 @@ class SensorManager:
             # Beispiel: 1g = 1ml, anpassen je nach Behälter!
             fill_level[name] = max(0, int(weight))
         return fill_level
-
-
-    '''
-    def leere_behaelter(self):          #Rückgabe: Liste aller leeren Behälter
-        
-        return [name for name, val in self.read_sensors().items() if val == 0]
-    '''

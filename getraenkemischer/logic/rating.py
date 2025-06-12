@@ -3,4 +3,3 @@ Nutzer soll nachdem das Getränk fertig gemischt wurde die Möglichkeit haben da
 Programm schlägt aufgrund der Bewertungen das beliebteste Getränk vor
 '''
 
-

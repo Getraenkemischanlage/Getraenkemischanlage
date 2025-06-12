@@ -17,7 +17,7 @@ from machine import Pin
 
 # GPIO-Zuordnung der Pumpen
 PUMP_PINS = {
-    "Wasser":  Pin(24, Pin.OUT),
+    "Wasser":  Pin(22, Pin.OUT),
     "Sirup_a": Pin(25, Pin.OUT),
     "Sirup_b": Pin(26, Pin.OUT),
     "Sirup_c": Pin(27, Pin.OUT),
@@ -27,7 +27,12 @@ PUMP_PINS = {
 
 # GPIO-Zuordnung der Sensoren
 SENSOR_PINS = {
-                
+    "SCK": Pin(0, Pin.OUT),         # Serial Clock GP0
+    "Sensor_1": Pin(1, Pin.IN),     # Sensor 1 GP1
+    "Sensor_2": Pin(2, Pin.IN),     # Sensor 2 GP2
+    "Sensor_3": Pin(3, Pin.IN),     # Sensor 3 GP3 
+    "Sensor_4": Pin(4, Pin.IN),     # Sensor 4 GP4
+    "Sensor_5": Pin(5, Pin.IN)      # Sensor 5 GP5
         }
 
     
