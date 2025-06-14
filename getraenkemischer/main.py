@@ -4,6 +4,11 @@ from logic.drink_suggestion import DrinkSuggestion
 from logic.mixer_controller import MixerController
 
 def main():
+    # 0. Test Pumpensteuerung 
+    pump_controller = PumpController()
+    pump_controller.dispense("Wasser", 100)  # Beispiel: 100 ml Wasser ausgeben
+
+
     # 1. Initialisiere Sensor- und Pumpensteuerung
     sensor_manager = SensorManager()
     pump_controller = PumpController()
@@ -29,3 +34,4 @@ def main():
 # Start des Programms
 if __name__ == "__main__":
     main()
+

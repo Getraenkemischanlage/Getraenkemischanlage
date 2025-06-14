@@ -1,3 +1,7 @@
+'''
+Rot zu E+, Schwarz zu E-, Grün zu A+ und Weiß zu A-
+'''
+
 from machine import Pin
 import time
 
@@ -29,8 +33,8 @@ class HX711:
         return count
 
 # Test-Pins
-dout_pin = 2  # DOUT an GP2
-sck_pin = 3   # SCK an GP3
+dout_pin = 1  # DOUT an GP2
+sck_pin = 0   # SCK an GP3
 
 # HX711 initialisieren
 hx = HX711(dout=dout_pin, pd_sck=sck_pin)
@@ -38,8 +42,23 @@ hx = HX711(dout=dout_pin, pd_sck=sck_pin)
 print("Starte Messung...")
 
 # Endlosschleife zum Testen
+'''
 while True:
     rohwert = hx.read()
-    gewicht_in_gramm = rohwert / 1000  # Dummy-Skalierung für Testzwecke!
+
+    gain = 1300 / (1.160204e+07 - 1.156051e+07)  # Beispielwert für Gain
+    offset = 1.156051e+07
+
+    gewicht_in_gramm = gain * (rohwert - offset)
+
     print(f"Rohwert: {rohwert}, Gewicht in Gramm (ungefähr!): {gewicht_in_gramm:.2f}")
     time.sleep(0.5)
+'''
+
+for i in range(20):
+    liste = []
+    liste.append(hx.read())
+    time.sleep(0.5)
+    durchschnitt = sum(liste) / len(liste)
+
+print(durchschnitt)
