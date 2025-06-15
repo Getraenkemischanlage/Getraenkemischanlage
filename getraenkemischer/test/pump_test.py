@@ -2,7 +2,7 @@ from machine import Pin
 import time
 
 # Pumpe/LED an GPIO 22
-pumpe = Pin(16, Pin.OUT)
+pumpe = Pin(21, Pin.OUT)
 
 print("Starte Pumpentest...")
 

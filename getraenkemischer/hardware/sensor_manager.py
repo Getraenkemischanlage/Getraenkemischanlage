@@ -86,18 +86,18 @@ class SensorManager:
             for i in range(len(self.gewicht_in_gramm)):
                 self.zuordnung["Sensor_" + str(i)] = self.gewicht_in_gramm[i]
                 
-            print(f"Rohwert: {durchschittswert}, Gewicht in Gramm (ungefähr!): {gewicht_in_gramm:.2f}")
+            print(f"Rohwert: {durchschittswert}, Gewicht in Gramm (ungefähr!): {self.gewicht_in_gramm:.2f}")
             time.sleep(0.5)
 
         return self.zuordnung
 
-
+'''
     def calculate_fill_level(self):
         for name, weight in self.read_sensors().items():
             # Beispiel: 1g = 1ml, anpassen je nach Behälter!
             fill_level[name] = max(0, int(weight))
         return fill_level
-
+'''
 
 '''
 # Endlosschleife zum Testen
