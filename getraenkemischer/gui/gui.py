@@ -76,7 +76,6 @@ class DrinkSuggestion:
         self.target_volume_ml = 200
         self.recipes = RecipeManager().get_all_recipes()  # Rezeptmanager instanziieren und Rezepte laden
          
-        @Yannik: Rezeptliste wurde ersetzt durch Import von RecipeManager
         self.recipes = {
             "Cola-Mix":         {"Wasser": 60, "Sirup_a": 140,},
             "Cocktail":         {"Alkohol": 80, "Sirup_b": 40, "Wasser": 80},
