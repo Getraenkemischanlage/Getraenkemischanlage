@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
 #from logic.drink_suggestion import DrinkSuggestion
-
 import json
 import os
 from collections import Counter
@@ -25,10 +24,7 @@ class SensorManager:            #Simuliert die aktuellen Füllstände der versch
 class DrinkSuggestion:
     def __init__(self, fill_levels):
         self.fill_levels = fill_levels
-        self.target_volume_ml = 200
-        self.recipes = RecipeManager().get_all_recipes()  # Rezeptmanager instanziieren und Rezepte laden
-         
-        
+        self.target_volume_ml = 200        
         self.recipes = {
             "Cola-Mix":         {"Wasser": 60, "Sirup_a": 140,},
             "Cocktail":         {"Alkohol": 80, "Sirup_b": 40, "Wasser": 80},
@@ -38,9 +34,14 @@ class DrinkSuggestion:
         
 
     def apply_recipe(self, drink_name):
+        output = f"Getränk '{drink_name}' wird gemischt:\n"
         for ingredient, amount in self.recipes[drink_name].items():
             if self.fill_levels[ingredient] >= amount:
                 self.fill_levels[ingredient] -= amount
+                output += f" - {amount} ml {ingredient}\n"
+            else:
+                output += f" - Nicht genug {ingredient} verfügbar! ({self.fill_levels[ingredient]} ml vorhanden, {amount} ml benötigt)\n"
+        return output
 
     def max_mixable_volume_ml(self, recipe):
         volumes = [
@@ -70,9 +71,12 @@ class BeverageGUI:
         self.fill_levels = self.sensor_manager.read_fill_levels()
         self.logic = DrinkSuggestion(self.fill_levels.copy())
 
-        self.bewertungen = []             # Bewertung speichern
+        # Bewertung speichern
+        self.bewertungen = []             
         self.lade_bewertungen()
-        self.letztes_getraenk = None      # Zuletzt gemixtes Getränk
+
+        # Zuletzt gemixtes Getränk
+        self.letztes_getraenk = None      
 
         self.text_output = tk.Text(root, height=6, width=50)
         self.text_output.pack(padx=10, pady=10)
@@ -86,10 +90,10 @@ class BeverageGUI:
         self.suggest_button = tk.Button(root, text="Bestes Getränk vorschlagen", command=self.suggest_best)
         self.suggest_button.pack(pady=10)
         #Like/Dislike Buttons
-        self.like_button = tk.Button(root, text="👍 Like", command=self.like_drink)
+        self.like_button = tk.Button(root, text="Like", command=self.like_drink)
         self.like_button.pack(pady=2)
 
-        self.dislike_button = tk.Button(root, text="👎 Dislike", command=self.dislike_drink)
+        self.dislike_button = tk.Button(root, text="Dislike", command=self.dislike_drink)
         self.dislike_button.pack(pady=2)
 
         tk.Button(root, text="Top Getränke anzeigen", command=self.zeige_top_getraenke).pack(pady=5) #zeigt getränk mit meisten likes
@@ -110,7 +114,7 @@ class BeverageGUI:
             self.progress_bars[ingredient] = bar
 
     def create_drink_buttons(self):     #Erstellt die Buttons für die Getränke
-        for drink in self.logic.recipe_manager.recipes.keys():
+        for drink in self.logic.recipes.keys():
             btn = tk.Button(self.root, text=drink, width=25,
                             command=lambda d=drink: self.mix_drink(d))
             btn.pack(pady=2)
@@ -122,7 +126,7 @@ class BeverageGUI:
 
     def update_button_states(self):     #Aktualisiert die Zustände der Getränkebuttons basierend auf den Füllständen
         for drink, button in self.buttons.items():
-            volume = self.logic.max_mixable_volume_ml(self.logic.recipe_manager.recipes[drink])
+            volume = self.logic.max_mixable_volume_ml(self.logic.recipes[drink])
             button.config(state="normal" if volume >= self.logic.target_volume_ml else "disabled")
 
     def update_gui(self):       #Aktualisiert die GUI mit den aktuellen Füllständen und Rezepten
@@ -133,10 +137,16 @@ class BeverageGUI:
 
     def mix_drink(self, drink_name):
         self.text_output.delete("1.0", tk.END)
+
         if drink_name in self.logic.recipes:
-            self.logic.apply_recipe(drink_name)
-            self.letztes_getraenk = drink_name  #  HIER speichern
-            self.text_output.insert(tk.END, f"'{drink_name}' wurde gemixt.\n")
+            result = self.logic.apply_recipe(drink_name)
+            self.letztes_getraenk = drink_name  # speichern
+
+            if result:
+                self.text_output.insert(tk.END, str(result))
+            else:
+                self.text_output.insert(tk.END, f"'{drink_name}' wurde gemixt.\n")
+
             self.update_gui()
         else:
             self.text_output.insert(tk.END, "Rezept nicht vorhanden.\n")
@@ -165,15 +175,13 @@ class BeverageGUI:
         self.text_output.delete("1.0", tk.END)
         self.text_output.insert(tk.END, "NOT-AUS zurückgesetzt. System wieder aktiv.\n")
 
-    def lade_bewertungen(self, dateiname="bewertungen.json"):
-        if os.path.exists(dateiname):
-            try:
-                with open(dateiname, "r") as f:
-                    self.bewertungen = json.load(f)
-            except json.JSONDecodeError:
-                self.bewertungen = []  # Datei war leer oder ungültig
+    def lade_bewertungen(self):
+        pfad = "bewertungen.json"
+        if os.path.exists(pfad) and os.path.getsize(pfad) > 0:
+            with open(pfad, "r") as f:
+                self.bewertungen = json.load(f)
         else:
-            self.bewertungen = [] 
+            self.bewertungen = []
 
     def speichere_bewertungen(self, dateiname="bewertungen.json"):
         try:
