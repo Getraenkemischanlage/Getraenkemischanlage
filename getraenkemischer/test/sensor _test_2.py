@@ -42,7 +42,7 @@ hx = HX711(dout=dout_pin, pd_sck=sck_pin)
 print("Starte Messung...")
 
 # Endlosschleife zum Testen
-'''
+
 while True:
     rohwert = hx.read()
 
@@ -62,3 +62,4 @@ for i in range(20):
     durchschnitt = sum(liste) / len(liste)
 
 print(durchschnitt)
+'''
