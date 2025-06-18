@@ -52,7 +52,9 @@ import tkinter as tk
 from tkinter import ttk
 from logic.drink_suggestion import DrinkSuggestion
 from logic.recipe_manager import RecipeManager
-
+import json
+import os
+from collections import Counter
 
 
 # --- Dummy SensorManager Klasse ---
@@ -76,6 +78,7 @@ class DrinkSuggestion:
         self.target_volume_ml = 200
         self.recipes = RecipeManager().get_all_recipes()  # Rezeptmanager instanziieren und Rezepte laden
          
+        @Yannik: Rezeptliste wurde ersetzt durch Import von RecipeManager
         self.recipes = {
             "Cola-Mix":         {"Wasser": 60, "Sirup_a": 140,},
             "Cocktail":         {"Alkohol": 80, "Sirup_b": 40, "Wasser": 80},
@@ -118,6 +121,7 @@ class BeverageGUI:
         self.logic = DrinkSuggestion(self.fill_levels.copy())
 
         self.bewertungen = []             # Bewertung speichern
+        self.lade_bewertungen()
         self.letztes_getraenk = None      # Zuletzt gemixtes Getränk
 
         self.text_output = tk.Text(root, height=6, width=50)
@@ -137,6 +141,8 @@ class BeverageGUI:
 
         self.dislike_button = tk.Button(root, text="👎 Dislike", command=self.dislike_drink)
         self.dislike_button.pack(pady=2)
+
+        tk.Button(root, text="Top Getränke anzeigen", command=self.zeige_top_getraenke).pack(pady=5) #zeigt getränk mit meisten likes
 
         tk.Button(root, text="NOT-AUS", command=self.emergency_stop, bg="white", fg="red").pack(pady=10)
         tk.Button(root, text="NOT-AUS zurücksetzen", command=self.reset_emergency_stop, bg="white", fg="green").pack(pady=5)
@@ -208,24 +214,54 @@ class BeverageGUI:
         self.text_output.delete("1.0", tk.END)
         self.text_output.insert(tk.END, "NOT-AUS zurückgesetzt. System wieder aktiv.\n")
 
-    def like_drink(self):       #Bewertet das zuletzt gemixte Getränk mit "like"
+    def lade_bewertungen(self, dateiname="bewertungen.json"):
+        if os.path.exists(dateiname):
+            with open(dateiname, "r") as f:
+                self.bewertungen = json.load(f)
+        else:
+            self.bewertungen = []
+
+    def speichere_bewertungen(self, dateiname="bewertungen.json"):
+        with open(dateiname, "w") as f:
+            json.dump(self.bewertungen, f, indent=2)
+
+    def like_drink(self):
         if self.letztes_getraenk:
             self.bewertungen.append({"getränk": self.letztes_getraenk, "bewertung": "like"})
             self.text_output.insert(tk.END, f" '{self.letztes_getraenk}' wurde mit LIKE bewertet.\n")
+            self.speichere_bewertungen()
         else:
-            self.text_output.insert(tk.END, "Kein Getränk zum Bewerten ausgewählt.\n")
+            self.text_output.insert(tk.END, " Kein Getränk zum Bewerten ausgewählt.\n")
 
-    def dislike_drink(self):        #Bewertet das zuletzt gemixte Getränk mit "dislike"
+    def dislike_drink(self):
         if self.letztes_getraenk:
             self.bewertungen.append({"getränk": self.letztes_getraenk, "bewertung": "dislike"})
             self.text_output.insert(tk.END, f" '{self.letztes_getraenk}' wurde mit DISLIKE bewertet.\n")
+            self.speichere_bewertungen()
         else:
             self.text_output.insert(tk.END, " Kein Getränk zum Bewerten ausgewählt.\n")
-        
+
+
+    def zeige_top_getraenke(self):
+        self.text_output.insert(tk.END, "\n Meistgelikte Getränke:\n")
+
+        likes = [b["getränk"] for b in self.bewertungen if b["bewertung"] == "like"]
+        counter = Counter(likes)
+        alle_getraenke = list({b["getränk"] for b in self.bewertungen})
+        sortiert = sorted(alle_getraenke, key=lambda g: -counter.get(g, 0))
+
+        for getraenk in sortiert:
+            anzahl = counter.get(getraenk, 0)
+            self.text_output.insert(tk.END, f"{getraenk}: {anzahl} Like(s)\n")
+
+        if not self.bewertungen:
+            self.text_output.insert(tk.END, "Noch keine Bewertungen vorhanden.\n")
 
 # --- Programmstart ---
 if __name__ == "__main__":
     root = tk.Tk()
     app = BeverageGUI(root)
     root.mainloop()
+
+
 
