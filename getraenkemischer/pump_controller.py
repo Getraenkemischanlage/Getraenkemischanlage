@@ -12,20 +12,20 @@ Klassen:
     - dispense(ingredient: str, amount_ml: float)
 '''
 
-from config import PUMP_PINS, FLOW_RATE
+from config import pump_pins, sensor_pins, totraum, flow_rate, target_volume
 import time
 
-class PumpController:
-    def __init__(self):       
-        self.pump_pins = PUMP_PINS  # Zuordnung der Pumpen zu den Pins
-
-        self.flow_rate_ml_per_sec = FLOW_RATE  # Durchflussrate: z. B. 10 ml/s
+class PumpController():
+    def __init__(self):  
+        self.pump_pins = pump_pins              # Zuordnung der Pumpen zu den Pins
+        self.totraum = totraum                  # Zuordnung der Toträume zu den Zutaten
+        self.flow_rate_ml_per_sec = flow_rate   # Durchflussrate: z. B. 10 ml/s
 
 
     def dispense(self, ingredient, amount_ml):
         # Berechnung der Förderzeit
         duration = amount_ml / self.flow_rate_ml_per_sec
-        
+        duration_totraum = self.totraum[ingredient] / self.flow_rate_ml_per_sec
         # Auswahl der richtigen Pumpe
         pump = self.pump_pins[ingredient]
 
@@ -34,6 +34,7 @@ class PumpController:
 
         # Pumpe aktivieren
         pump.value(1)
+        time.sleep(duration_totraum)
         time.sleep(duration)
         pump.value(0)
 

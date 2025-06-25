@@ -10,6 +10,7 @@ while True:
     print("Pumpe EIN")
     pumpe.value(1)      # Setzt GP22 auf HIGH
     time.sleep(5)       # 2 Sekunden an
+    
 
     print("Pumpe AUS")
     pumpe.value(0)      # Setzt GP22 auf LOW

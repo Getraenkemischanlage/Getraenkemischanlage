@@ -10,7 +10,7 @@ def main():
 
     # 2. Lese aktuelle Füllstände der Behälter
     fill_levels = {}
-    sensor_data = sensor_manager.read_sensors()
+    sensor_data = sensor_manager.read_fill_levels()  # Lese Füllstände von Sensoren
     for name, is_full in sensor_data.items():
         fill_levels[name] = 500 if is_full else 0  # z. B. 500 ml wenn voll
 
