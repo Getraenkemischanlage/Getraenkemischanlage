@@ -1,5 +1,5 @@
-from hardware.sensor_manager import SensorManager
-from hardware.pump_controller import PumpController
+from sensor_manager import SensorManager
+from pump_controller import PumpController
 from getraenkemischer.algorithm.mixer_controller import MixerController
 import tkinter as tk
 from gui.gui import BeverageGUI

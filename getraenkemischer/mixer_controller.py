@@ -11,7 +11,7 @@ Klassen:
     - __init__(pump_controller: PumpController)
     - mix(recipe_name: str)     (gibt None zurück)
 '''
-
+'''
 import time
 from getraenkemischer.algorithm.recipe_manager import RecipeManager
 from config import target_volume
@@ -37,7 +37,7 @@ class MixerController:
 
 
 
-            '''
+            
     def dispense(self, ingredient, amount_ml):
         #Jeweilige Pumpe wird so lange angesteuert bis gewünschte Menge erreicht ist
         #Bekommt ingridient (Welche Flüssigkeit soll gefördert werden?) und amount_ml (Welche Menge) übermittelt
@@ -60,4 +60,5 @@ class MixerController:
         pump.value(1)
         time.sleep(duration)
         pump.value(0)
-        '''
+
+'''

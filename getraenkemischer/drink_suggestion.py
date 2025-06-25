@@ -12,7 +12,7 @@ Klassen:
     - apply_recipe(recipe_name: str): None
 '''
 
-from hardware.sensor_manager import SensorManager
+from sensor_manager import SensorManager
 from recipe_manager import RecipeManager
 
 class DrinkSuggestion:
