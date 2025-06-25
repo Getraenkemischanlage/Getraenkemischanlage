@@ -1,7 +1,8 @@
 from hardware.sensor_manager import SensorManager
 from hardware.pump_controller import PumpController
-from logic.drink_suggestion import DrinkSuggestion
-from logic.mixer_controller import MixerController
+from getraenkemischer.algorithm.mixer_controller import MixerController
+import tkinter as tk
+from gui.gui import BeverageGUI
 
 def main():
     # 0. Test Pumpensteuerung 
@@ -20,18 +21,9 @@ def main():
     for name, is_full in sensor_data.items():
         fill_levels[name] = 500 if is_full else 0  # z. B. 500 ml wenn voll
 
-    # 3. Erzeuge Vorschlag für mischbares Getränk
-    suggestion = DrinkSuggestion(fill_levels)
-    best_drink = suggestion.suggest_best_drink()
-
-    if best_drink:
-        print(f"\n→ Empfohlenes Getränk: {best_drink}")
-        # 4. Mische das Getränk
-        mixer_controller.mix(best_drink)
-    else:
-        print("⚠️ Kein Getränk mischbar. Bitte Behälter auffüllen.")
-
 # Start des Programms
 if __name__ == "__main__":
-    main()
+    root = tk.Tk()
+    app = BeverageGUI(root)
+    root.mainloop()
 

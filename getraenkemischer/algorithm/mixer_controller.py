@@ -13,7 +13,7 @@ Klassen:
 '''
 
 import time
-from logic.recipe_manager import RecipeManager
+from getraenkemischer.algorithm.recipe_manager import RecipeManager
 from config import target_volume
 from hardware.pump_controller import PumpController
 
