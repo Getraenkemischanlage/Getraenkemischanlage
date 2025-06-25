@@ -97,17 +97,17 @@ class BeverageGUI:
         self.suggest_button = tk.Button(root, text="Bestes Getränk vorschlagen", command=self.suggest_best)
         self.suggest_button.pack(pady=10)
         #Like/Dislike Buttons
-        self.like_button = tk.Button(root, text="Like", command=self.like_drink)
-        self.like_button.pack(pady=2)
+        like_frame = tk.Frame(root)
+        like_frame.pack()
+        self.like_button = tk.Button(like_frame, text="Like", command=self.like_drink)
+        self.like_button.pack(side=tk.LEFT, padx=10)
 
-        self.dislike_button = tk.Button(root, text="Dislike", command=self.dislike_drink)
-        self.dislike_button.pack(pady=2)
+        self.dislike_button = tk.Button(like_frame, text="Dislike", command=self.dislike_drink)
+        self.dislike_button.pack(side=tk.LEFT, padx=10)
 
-        tk.Button(root, text="Top Getränke anzeigen", command=self.zeige_top_getraenke).pack(pady=5) #zeigt getränk mit meisten likes
-
+        tk.Button(root, text="Top Getränke anzeigen", command=self.zeige_top_getraenke).pack(pady=5)
         tk.Button(root, text="NOT-AUS", command=self.emergency_stop, bg="white", fg="red").pack(pady=10)
         tk.Button(root, text="NOT-AUS zurücksetzen", command=self.reset_emergency_stop, bg="white", fg="green").pack(pady=5)
-
         self.update_gui()
 
     def create_progress_bars(self):     #Erstellt die Fortschrittsbalken für die Füllstände
@@ -120,15 +120,24 @@ class BeverageGUI:
             bar.pack(side='left', fill='x')
             self.progress_bars[ingredient] = bar
 
-    def create_drink_buttons(self):                                       
+    def create_drink_buttons(self):
         button_frame = tk.Frame(self.root)
         button_frame.pack(pady=10)
 
-        for drink in self.logic.recipes.keys():
+        row = 0
+        col = 0
+
+        for i, drink in enumerate(self.logic.recipes.keys()):
             btn = tk.Button(button_frame, text=drink, width=20,
                         command=lambda d=drink: self.mix_drink(d))
-            btn.pack(side=tk.LEFT, padx=5)  # <<< nebeneinander durch side=LEFT
+            btn.grid(row=row, column=col, padx=5, pady=5)
             self.buttons[drink] = btn
+
+            col += 1
+            if col > 1:
+                col = 0
+                row += 1
+
 
 
     def update_progress_bars(self):     #Aktualisiert die Fortschrittsbalken mit den aktuellen Füllständen
