@@ -10,14 +10,10 @@ Klassen:
     Klassenmethoden:
     - __init__()
     - dispense(ingredient: str, amount_ml: float)
-
-
 '''
-
 
 from config import PUMP_PINS, FLOW_RATE
 import time
-
 
 class PumpController:
     def __init__(self):       
@@ -40,6 +36,28 @@ class PumpController:
         pump.value(1)
         time.sleep(duration)
         pump.value(0)
+
+    
+    def emergency_stop(self):
+        # Alle Pumpen ausschalten
+        for pump in self.pump_pins.values():
+            pump.value(0)
+        print("Alle Pumpen gestoppt.")
+
+    def get_pump_status(self):
+        # Gibt den Status aller Pumpen zurück
+        status = {ingredient: pump.value() for ingredient, pump in self.pump_pins.items()}
+        return status
+    
+    def reset_pumps(self):
+        # Setzt alle Pumpen auf den Ausgangszustand (aus)
+        for pump in self.pump_pins.values():
+            pump.value(0)
+        print("Alle Pumpen zurückgesetzt.")
+
+    
+
+
 
 
 

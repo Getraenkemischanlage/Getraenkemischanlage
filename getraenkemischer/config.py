@@ -29,12 +29,13 @@ PUMP_PINS = {
 # GPIO-Zuordnung der Sensoren
 SENSOR_PINS = {
     "SCK": Pin(0, Pin.OUT),         # Serial Clock GP0
-    "Wasser": Pin(1, Pin.IN),     # Sensor 1 GP1
-    "Sirup_a": Pin(2, Pin.IN),     # Sensor 2 GP2
-    "Sirup_b": Pin(3, Pin.IN),     # Sensor 3 GP3 
+    "Wasser": Pin(1, Pin.IN),       # Sensor 1 GP1
+    "Sirup_a": Pin(2, Pin.IN),      # Sensor 2 GP2
+    "Sirup_b": Pin(3, Pin.IN),      # Sensor 3 GP3 
+    "Sirup_c": Pin(4, Pin.IN),      # Sensor 4 GP4
         }
 
     
 FLOW_RATE = 10                  # Fördermenge pro Pumpe in ml/s
 
-target_volume = 200             # Zielmenge in ml
+target_volume = 400             # Zielmenge in ml

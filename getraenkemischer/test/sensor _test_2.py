@@ -1,5 +1,7 @@
 '''
 Rot zu E+, Schwarz zu E-, Grün zu A+ und Weiß zu A-
+Nullwert: 7903406.0
+1300g: 6584035.0
 '''
 
 from machine import Pin
@@ -46,15 +48,18 @@ print("Starte Messung...")
 while True:
     rohwert = hx.read()
 
-    gain = 1300 / (1.160204e+07 - 1.156051e+07)  # Beispielwert für Gain
-    offset = 1.156051e+07
+    gain = 1300 / (6584035.0 - 7903406.0)  # Beispielwert für Gain
+    offset = 7903406.0
 
     gewicht_in_gramm = gain * (rohwert - offset)
+    if gewicht_in_gramm < 0:
+        gewicht_in_gramm = 0
 
     print(f"Rohwert: {rohwert}, Gewicht in Gramm (ungefähr!): {gewicht_in_gramm:.2f}")
     time.sleep(0.5)
-'''
 
+
+'''
 for i in range(20):
     liste = []
     liste.append(hx.read())
