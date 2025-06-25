@@ -71,15 +71,15 @@ class SensorManager:
             print(f"Starte Messung Sensor {list(self.sensor_pins.keys())[i]} ")
 
             rohwerte = []  # Liste für Rohwerte
-            for _ in range(10):         # Anzahl der Messungen pro Sensor
-                rohwert = hx.read()  # Rohwert vom HX711 lesen
+            for _ in range(10):                 # Anzahl der Messungen pro Sensor
+                rohwert = hx.read()             # Rohwert vom HX711 lesen
                 rohwerte.append(rohwert)  
                 time.sleep(0.5)
-                
+            
             durchschittswert = sum(rohwerte) // len(rohwerte)  # Durchschnitt der Rohwerte
 
-            gain = 1300 / (1.160204e+07 - 1.156051e+07)  
-            offset = 1.156051e+07
+            gain = 1300 / (6584035.0 - 7903406.0)  # Beispielwert für Gain
+            offset = 7903406.0
 
             self.gewicht_in_gramm.append(gain * (durchschittswert - offset))
 

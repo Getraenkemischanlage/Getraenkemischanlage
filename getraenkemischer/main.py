@@ -4,11 +4,6 @@ import tkinter as tk
 from gui import BeverageGUI
 
 def main():
-    # 0. Test Pumpensteuerung 
-    pump_controller = PumpController()
-    pump_controller.dispense("Wasser", 100)  # Beispiel: 100 ml Wasser ausgeben
-
-
     # 1. Initialisiere Sensor- und Pumpensteuerung
     sensor_manager = SensorManager()
     pump_controller = PumpController()
@@ -18,6 +13,7 @@ def main():
     sensor_data = sensor_manager.read_sensors()
     for name, is_full in sensor_data.items():
         fill_levels[name] = 500 if is_full else 0  # z. B. 500 ml wenn voll
+
 
 # Start des Programms
 if __name__ == "__main__":

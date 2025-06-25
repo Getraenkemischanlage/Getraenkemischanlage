@@ -4,6 +4,7 @@ from drink_suggestion import DrinkSuggestion
 import json
 import os
 from collections import Counter
+from recipe_manager import RecipeManager
 
 
 # --- Dummy SensorManager Klasse ---
