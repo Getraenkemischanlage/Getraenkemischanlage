@@ -1,8 +1,7 @@
 from sensor_manager import SensorManager
 from pump_controller import PumpController
-from getraenkemischer.algorithm.mixer_controller import MixerController
 import tkinter as tk
-from gui.gui import BeverageGUI
+from gui import BeverageGUI
 
 def main():
     # 0. Test Pumpensteuerung 
@@ -13,7 +12,6 @@ def main():
     # 1. Initialisiere Sensor- und Pumpensteuerung
     sensor_manager = SensorManager()
     pump_controller = PumpController()
-    mixer_controller = MixerController(pump_controller)
 
     # 2. Lese aktuelle Füllstände der Behälter
     fill_levels = {}

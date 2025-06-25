@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-#from logic.drink_suggestion import DrinkSuggestion
+from drink_suggestion import DrinkSuggestion
 import json
 import os
 from collections import Counter
