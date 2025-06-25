@@ -14,7 +14,6 @@ def main():
     for name, is_full in sensor_data.items():
         fill_levels[name] = 500 if is_full else 0  # z. B. 500 ml wenn voll
 
-
 # Start des Programms
 if __name__ == "__main__":
     root = tk.Tk()
