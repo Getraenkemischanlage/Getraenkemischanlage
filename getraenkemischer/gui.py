@@ -17,7 +17,7 @@ class SensorManager:            #Simuliert die aktuellen Füllstände der versch
             "Alkohol": 300
         }
 
-    def read_fill_levels(self):     #gibt Kopie der Füllstände zurück
+    def read_fill_levels(self):         #gibt Kopie der Füllstände zurück
         return self.levels.copy()
 
 

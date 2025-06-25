@@ -59,9 +59,9 @@ class SensorManager:
     def __init__(self):
         self.sensor_pins = SENSOR_PINS
         self.gewicht_in_gramm = []
-        self.zuordnung = {}  # Zuordnung von Behäälter zu Gewichten
+        self.zuordnung = {}  # Zuordnung von Behälter zu Gewichten
        
-    def read_sensors(self):
+    def read_fill_levels(self):
         for i in range(1, 4):
             dout = list(self.sensor_pins.values())[i]
             pd_sck = self.sensor_pins["SCK"]
