@@ -44,11 +44,18 @@ class DrinkSuggestion:
         return output
 
     def max_mixable_volume_ml(self, recipe):
-        volumes = [
-            self.fill_levels.get(ing, 0) // amount
-            for ing, amount in recipe.items()
+        # Wie viele Portionen möglich?
+        portions = [
+        self.fill_levels.get(ing, 0) / amount
+        for ing, amount in recipe.items()
+        if amount > 0
         ]
-        return min(volumes) * sum(recipe.values()) if volumes else 0
+        if not portions:
+            return 0
+        # Volumen pro Portion 
+        portion_volume = sum(recipe.values())
+        max_volume = min(portions) * portion_volume
+        return int(max_volume)
 
     def suggest_best_drink(self):
         best = None
@@ -175,10 +182,9 @@ class BeverageGUI:
         self.text_output.delete("1.0", tk.END)
         self.text_output.insert(tk.END, "NOT-AUS zurückgesetzt. System wieder aktiv.\n")
 
-    def lade_bewertungen(self):
-        pfad = "bewertungen.json"
-        if os.path.exists(pfad) and os.path.getsize(pfad) > 0:
-            with open(pfad, "r") as f:
+    def lade_bewertungen(self,dateiname="bewertungen.json"):
+        if os.path.exists(dateiname) and os.path.getsize(dateiname) > 0:
+            with open(dateiname, "r") as f:
                 self.bewertungen = json.load(f)
         else:
             self.bewertungen = []
