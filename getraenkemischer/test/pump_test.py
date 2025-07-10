@@ -1,4 +1,3 @@
-from machine import Pin
 import time
 
 # Pumpe/LED an GPIO 22

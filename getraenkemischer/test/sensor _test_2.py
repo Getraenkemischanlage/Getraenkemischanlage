@@ -4,7 +4,7 @@ Nullwert: 7903406.0
 1300g: 6584035.0
 '''
 
-from machine import Pin
+from code import sensor_pins
 import time
 
 # Vereinfachter HX711-Treiber für den Test

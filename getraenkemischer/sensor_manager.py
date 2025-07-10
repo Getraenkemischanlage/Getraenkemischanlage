@@ -1,6 +1,6 @@
-from config import sensor_pins
-from machine import Pin
+from code import sensor_pins
 import time
+from code import Pin
 
 # Vereinfachter HX711-Treiber für Pico
 class HX711:
