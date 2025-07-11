@@ -1,7 +1,7 @@
-from sensor_manager import SensorManager
-from pump_controller import PumpController
+from Getraenkemischanlage.getraenkemischer.pico_code.sensor_manager import SensorManager
+from Getraenkemischanlage.getraenkemischer.pico_code.pump_controller import PumpController
 import tkinter as tk
-from gui import BeverageGUI
+from Getraenkemischanlage.getraenkemischer.gui import BeverageGUI
 
 def main():
     # 1. Initialisiere Sensor- und Pumpensteuerung

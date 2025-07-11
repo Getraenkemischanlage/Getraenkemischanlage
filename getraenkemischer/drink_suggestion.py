@@ -1,30 +1,12 @@
-'''
-Klassen:
-- DrinkSuggestion
-    Klassenobjekte:
-    - fill_levels: dict
-    - target_volume_ml: int
-    - recipe_manager: RecipeManager
-    Klassenmethoden:
-    - __init__(fill_levels: dict)
-    - suggest_best_drink(): None
-    - max_mixable_volume_ml(recipe: dict)   (gibt float zurürck)
-    - apply_recipe(recipe_name: str): None
-'''
-
 from sensor_manager import SensorManager
 from recipe_manager import RecipeManager
 
 class DrinkSuggestion:
     def __init__(self, fill_levels):
-        
-        self.fill_levels = fill_levels  # Füllstände 
+        self.fill_levels = fill_levels  # Aktuelle Füllstände
+        self.target_volume_ml = 200     # Zielvolumen in ml
+        self.recipe_manager = RecipeManager()
 
-        self.target_volume_ml = 200 # Zielmenge in ml
-
-        self.recipe_manager = RecipeManager()   # holt Rezepte
-        
-     
     def suggest_best_drink(self):
         best_drink = None
         max_possible_volume = 0
@@ -64,9 +46,3 @@ class DrinkSuggestion:
             self.fill_levels[ingredient] -= needed
 
         return f"{recipe_name} wurde gemischt ({self.target_volume_ml} ml).\n"
-
-sensor_manager = SensorManager()
-current_fill_levels = sensor_manager.read_fill_levels()  # Lese aktuelle Füllstände der Sensoren
-
-suggestion = DrinkSuggestion(current_fill_levels)
-suggestion.suggest_best_drink()
