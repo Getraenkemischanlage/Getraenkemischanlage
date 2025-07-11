@@ -4,10 +4,11 @@ Nullwert: 7903406.0
 1300g: 6584035.0
 '''
 
-from code import sensor_pins
+# from code import sensor_pins
+
 import time
 
-# Vereinfachter HX711-Treiber für den Test
+# Vereinfachter HX711-Treiber
 class HX711:
     def __init__(self, dout, pd_sck):
         self.dout = Pin(dout, Pin.IN, pull=Pin.PULL_UP)
@@ -35,8 +36,8 @@ class HX711:
         return count
 
 # Test-Pins
-dout_pin = 1  # DOUT an GP2
-sck_pin = 0   # SCK an GP3
+dout_pin = 1  # DOUT an GP1
+sck_pin = sensor_pins["SCK"]   # Wert des Dictionary sensor_pins für "SCK"
 
 # HX711 initialisieren
 hx = HX711(dout=dout_pin, pd_sck=sck_pin)

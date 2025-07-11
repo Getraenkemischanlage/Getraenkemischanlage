@@ -12,7 +12,6 @@ Klassen:
     - dispense(ingredient: str, amount_ml: float)
 '''
 
-from code import pump_pins, sensor_pins, totraum, flow_rate, target_volume
 import time
 
 class PumpController():
