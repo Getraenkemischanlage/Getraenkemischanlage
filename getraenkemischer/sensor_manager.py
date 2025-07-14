@@ -30,40 +30,19 @@ class HX711:
 
 class SensorManager:
     def __init__(self):
-        self.sensor_pins = sensor_pins
+        self.ser = None
 
     def read_fill_levels(self):
-        self.gewicht_in_gramm = []
-        self.zuordnung = {}
-
-        # Sensoren außer "SCK" (angenommen: SCK ist für alle gleich)
-        sensor_keys = list(self.sensor_pins.keys())
-        data_keys = sensor_keys[1:]  # ["Wasser", "Sirup_a", "Sirup_b", "Alkohol"]
-
-        for key in data_keys:
-            dout = self.sensor_pins[key]
-            pd_sck = self.sensor_pins["SCK"]
-            print(f"[{key}] DOUT: {dout}, SCK: {pd_sck}")
-
-            hx = HX711(dout, pd_sck)
-            rohwerte = []
-
-            for _ in range(10):
-                rohwert = hx.read()
-                rohwerte.append(rohwert)
-                time.sleep(0.5)
-
-            durchschnitt = sum(rohwerte) // len(rohwerte)
-
-            # Beispielhafte Kalibrierung – muss angepasst werden
-            gain = 1300 / (6584035.0 - 7903406.0)
-            offset = 7903406.0
-            gewicht = gain * (durchschnitt - offset)
-
-            self.gewicht_in_gramm.append(gewicht)
-            self.zuordnung[key] = gewicht
-
-            print(f"[{key}] Rohwert: {durchschnitt}, Gewicht (ca.): {gewicht:.2f} g")
-            time.sleep(0.5)
-
-        return self.zuordnung
+        try:
+            with serial.Serial(SERIAL_PORT, BAUDRATE, timeout=2) as ser:
+                ser.write(b"READ\n")  # Sende Befehl an den Pico
+                raw = ser.readline().decode().strip()
+                if raw:
+                    data = json.loads(raw)
+                    return data
+                else:
+                    print("Keine Daten empfangen.")
+                    return {}
+        except Exception as e:
+            print(f"[SensorManager] Fehler bei der Verbindung: {e}")
+            return {}

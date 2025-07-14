@@ -1,5 +1,10 @@
+<<<<<<< HEAD:getraenkemischer/main.py
+=======
+from Getraenkemischanlage.getraenkemischer.pico_code.sensor_manager import SensorManager
+from Getraenkemischanlage.getraenkemischer.pico_code.pump_controller import PumpController
+>>>>>>> 9f28c6885bdbfc43fbeacacc16d82241b15e6f7d:getraenkemischer/pico_code/code.py
 import tkinter as tk
-from gui import BeverageGUI
+from Getraenkemischanlage.getraenkemischer.gui import BeverageGUI
 
 import serial
 import time
