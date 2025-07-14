@@ -1,82 +1,104 @@
-<<<<<<< HEAD:getraenkemischer/main.py
-=======
-from Getraenkemischanlage.getraenkemischer.pico_code.sensor_manager import SensorManager
-from Getraenkemischanlage.getraenkemischer.pico_code.pump_controller import PumpController
->>>>>>> 9f28c6885bdbfc43fbeacacc16d82241b15e6f7d:getraenkemischer/pico_code/code.py
-import tkinter as tk
-from Getraenkemischanlage.getraenkemischer.gui import BeverageGUI
-
-import serial
 import time
+import board
+import digitalio
+import usb_cdc
+import json
+from config import pump_pins, sensor_pins, totraum, flow_rate
+from hx711 import HX711
 
-# COM-Port deines Pico (anpassen falls nötig, z. B. "COM3" oder "/dev/ttyACM0")
-COM_PORT = "COM5"
-BAUDRATE = 9600
+# Pumpen-Setup
+class PumpController:
+    def __init__(self):
+        self.flow_rate_ml_per_sec = flow_rate
+        self.taotraum = totraum
+        self.pumps = {}
+        for name, pin in pump_pins.items():
+            p = digitalio.DigitalInOut(pin)
+            p.direction = digitalio.Direction.OUTPUT
+            p.value = False
+            self.pumps[name] = p
 
-def sende_befehl(ser, befehl):
-    befehl = befehl.strip() + "\n"
-    ser.write(befehl.encode("utf-8"))
+    def dispense(self, ingredient, amount_ml):
+        if ingredient not in self.pumps:
+            return f"Unbekannte Zutat: {ingredient}"
 
-    # Wenn "READ" gesendet wurde, Antwort lesen
-    if befehl.strip().upper() == "READ":
-        antwort = ser.readline().decode("utf-8").strip()
-        try:
-            werte = [float(w) for w in antwort.split(",")]
-            print("Sensorwerte (g):", werte)
-        except ValueError:
-            print("Fehlerhafte Antwort:", antwort)
-    else:
-        print("Befehl gesendet:", befehl.strip())
+        pump = self.pumps[ingredient]
+        duration = amount_ml / self.flow_rate_ml_per_sec
+        duration_totraum = self.totraum.get(ingredient, 0) / self.flow_rate_ml_per_sec
 
-def main():
-    try:
-        ser = serial.Serial(COM_PORT, BAUDRATE, timeout=2)
-        time.sleep(2)  # Zeit geben, damit der Pico starten kann
+        pump.value = True
+        time.sleep(duration_totraum + duration)
+        pump.value = False
+        return f"{ingredient}: {amount_ml} ml abgegeben"
 
-        print("Verbindung zum Pico hergestellt.")
-        print("Befehle:")
-        print(" - READ               → Sensoren abfragen")
-        print(" - wasser 1.5         → Wasserpumpe 1.5 Sek. einschalten")
-        print(" - sirup_a 2          → Sirup-A-Pumpe 2 Sek. einschalten")
-        print(" - quit               → Beenden")
+    def emergency_stop(self):
+        for pump in self.pumps.values():
+            pump.value = False
 
-        while True:
-            befehl = input(">>> ").strip()
-            if befehl.lower() == "quit":
-                break
-            sende_befehl(ser, befehl)
+    def reset_pumps(self):
+        for pump in self.pumps.values():
+            pump.value = False
 
-        ser.close()
-        print("Verbindung geschlossen.")
+# Sensor-Setup
+def read_sensor(dout_pin, sck_pin):
+    hx = HX711(dout_pin, sck_pin)
+    values = [hx.read() for _ in range(5)]
+    avg = sum(values) / len(values)
 
-    except serial.SerialException as e:
-        print("Fehler beim Öffnen des COM-Ports:", e)
+    gain = 1300 / (6584035.0 - 7903406.0)
+    offset = 7903406.0
+    gewicht = gain * (avg - offset)
+    return max(0, round(gewicht, 1))
 
-if __name__ == "__main__":
-    main()
+def read_fill_levels():
+    results = {}
+    for name, dout in sensor_pins.items():
+        if name == "SCK":
+            continue
+        results[name] = read_sensor(dout, sensor_pins["SCK"])
+    return results
 
+# Hauptlogik
+def main_loop():
+    pump_ctrl = PumpController()
+    emergency = False
 
+    while True:
+        if usb_cdc.data.in_waiting:
+            command = usb_cdc.data.read(usb_cdc.data.in_waiting).decode().strip()
+            parts = command.split()
 
-'''
-ser = serial.Serial('COM5', 9600)  # COM-Port ggf. anpassen
-time.sleep(2)  # Warten, bis Pico bereit ist
+            if command == "READ_FILL_LEVELS":
+                levels = read_fill_levels()
+                usb_cdc.data.write((json.dumps(levels) + "\n").encode())
 
-# Pumpe "wasser" für 3 Sekunden einschalten
-ser.write(b"wasser 3\n")
+            elif parts[0] == "DISPENSE" and len(parts) == 3:
+                if emergency:
+                    usb_cdc.data.write(b"ERROR: NOT-AUS aktiv\n")
+                    continue
+                zutatenname = parts[1]
+                try:
+                    menge = float(parts[2])
+                    result = pump_ctrl.dispense(zutatenname, menge)
+                    usb_cdc.data.write((result + "\n").encode())
+                except ValueError:
+                    usb_cdc.data.write(b"ERROR: Ungültige Menge\n")
 
+            elif command == "EMERGENCY_STOP":
+                emergency = True
+                pump_ctrl.emergency_stop()
+                usb_cdc.data.write(b"NOT-AUS aktiviert\n")
 
-def main():
-    # 2. Lese aktuelle Füllstände der Behälter
-    fill_levels = {}
-    sensor_data = sensor_manager.read_fill_levels()  # Lese Füllstände von Sensoren
-    for name, is_full in sensor_data.items():
-        fill_levels[name] = 500 if is_full else 0  # z. B. 500 ml wenn voll
+            elif command == "RESET_PUMPS":
+                emergency = False
+                pump_ctrl.reset_pumps()
+                usb_cdc.data.write(b"NOT-AUS zurückgesetzt\n")
 
+            else:
+                usb_cdc.data.write(b"Unbekannter Befehl\n")
 
-# Start des Programms
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = BeverageGUI(root)
-    root.mainloop()
+        time.sleep(0.05)
+
+main_loop()
 
 '''
