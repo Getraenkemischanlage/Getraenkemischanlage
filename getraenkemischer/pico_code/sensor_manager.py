@@ -12,7 +12,7 @@ SENSORS = {
     "Wasser": board.GP1,
     "Sirup_a": board.GP2,
     "Sirup_b": board.GP3,
-    "Alkohol": board.GP4
+    "Sirup_c": board.GP4
 }
 
 def read_sensor(dout_pin):

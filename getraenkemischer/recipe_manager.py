@@ -16,7 +16,7 @@ class RecipeManager:
     def __init__(self):
         self.recipes = {
             "Cola-Mix":         {"Wasser": 60, "Sirup_a": 140,},
-            "Cocktail":         {"Alkohol": 80, "Sirup_b": 40, "Wasser": 80},
+            "Cocktail":         {"Sirup_c": 80, "Sirup_b": 40, "Wasser": 80},
             "Schorle":          {"Wasser": 100, "Sirup_b": 100},
             "Cola-Light Mix":   {"Wasser": 140, "Sirup_a": 60}
         }

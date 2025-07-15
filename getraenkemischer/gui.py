@@ -82,8 +82,11 @@ class BeverageGUI:
     def update_progress_bars(self):
         for ingredient, bar in self.progress_bars.items():
             raw_value = self.fill_levels.get(ingredient, 0)
-            # Normalize the raw sensor value (typical range 8000000-8600000) to 0-1000 for progress bar
-            normalized_value = max(0, min(1000, (raw_value - 8000000) / 600))
+            # Normalize the raw sensor value (typical range 7800000-8600000) to 0-1000 for progress bar
+            # Based on your sensor readings: min ~7871674, max ~8574153
+            min_sensor_value = 7800000
+            max_sensor_value = 8600000
+            normalized_value = max(0, min(1000, ((raw_value - min_sensor_value) / (max_sensor_value - min_sensor_value)) * 1000))
             bar['value'] = normalized_value
 
     def update_button_states(self):
