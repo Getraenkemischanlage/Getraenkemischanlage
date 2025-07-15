@@ -6,7 +6,6 @@ import json
 from config import pump_pins, sensor_pins, totraum, flow_rate
 from hx711 import HX711
 
-# Pumpen-Setup
 class PumpController:
     def __init__(self):
         self.flow_rate_ml_per_sec = flow_rate
@@ -21,11 +20,9 @@ class PumpController:
     def dispense(self, ingredient, amount_ml):
         if ingredient not in self.pumps:
             return f"Unbekannte Zutat: {ingredient}"
-
         pump = self.pumps[ingredient]
         duration = amount_ml / self.flow_rate_ml_per_sec
         duration_totraum = self.totraum.get(ingredient, 0) / self.flow_rate_ml_per_sec
-
         pump.value = True
         time.sleep(duration_totraum + duration)
         pump.value = False
@@ -39,26 +36,25 @@ class PumpController:
         for pump in self.pumps.values():
             pump.value = False
 
-# Sensor-Setup
 def read_sensor(dout_pin, sck_pin):
     hx = HX711(dout_pin, sck_pin)
     values = [hx.read() for _ in range(5)]
     avg = sum(values) / len(values)
-
     gain = 1300 / (6584035.0 - 7903406.0)
     offset = 7903406.0
     gewicht = gain * (avg - offset)
     return max(0, round(gewicht, 1))
 
 def read_fill_levels():
+    print("Starte das Auslesen der Sensoren...")  # Debug-Ausgabe
     results = {}
     for name, dout in sensor_pins.items():
         if name == "SCK":
             continue
         results[name] = read_sensor(dout, sensor_pins["SCK"])
+    print(f"Sensorwerte: {results}")  # Debug-Ausgabe
     return results
 
-# Hauptlogik
 def main_loop():
     pump_ctrl = PumpController()
     emergency = False
@@ -66,36 +62,48 @@ def main_loop():
     while True:
         if usb_cdc.data.in_waiting:
             command = usb_cdc.data.read(usb_cdc.data.in_waiting).decode().strip()
+            command = command.strip()
+            print(f"Empfangenes Kommando: '{command}'")
             parts = command.split()
 
             if command == "READ_FILL_LEVELS":
                 levels = read_fill_levels()
-                usb_cdc.data.write((json.dumps(levels) + "\n").encode())
+                response = json.dumps(levels) + "\n"
+                usb_cdc.data.write(response.encode())
+                usb_cdc.data.flush()
+                print(f"Antwort gesendet: {response.strip()}")
 
             elif parts[0] == "DISPENSE" and len(parts) == 3:
                 if emergency:
                     usb_cdc.data.write(b"ERROR: NOT-AUS aktiv\n")
+                    usb_cdc.data.flush()
                     continue
                 zutatenname = parts[1]
                 try:
                     menge = float(parts[2])
                     result = pump_ctrl.dispense(zutatenname, menge)
                     usb_cdc.data.write((result + "\n").encode())
+                    usb_cdc.data.flush()
+                    print(f"Antwort gesendet: {result}")
                 except ValueError:
                     usb_cdc.data.write(b"ERROR: Ungültige Menge\n")
+                    usb_cdc.data.flush()
 
             elif command == "EMERGENCY_STOP":
                 emergency = True
                 pump_ctrl.emergency_stop()
                 usb_cdc.data.write(b"NOT-AUS aktiviert\n")
+                usb_cdc.data.flush()
 
             elif command == "RESET_PUMPS":
                 emergency = False
                 pump_ctrl.reset_pumps()
                 usb_cdc.data.write(b"NOT-AUS zurückgesetzt\n")
+                usb_cdc.data.flush()
 
             else:
                 usb_cdc.data.write(b"Unbekannter Befehl\n")
+                usb_cdc.data.flush()
 
         time.sleep(0.05)
 

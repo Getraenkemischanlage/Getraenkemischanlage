@@ -73,27 +73,41 @@ hx3 = HX711(dout_pin=dout3, sck_pin=sck)
 hx4 = HX711(dout_pin=dout4, sck_pin=sck)
 
 
-# Replace the main loop with this version:
+# Replace the main loop with this debug version:
+print("Starting sensor test - waiting for commands...")
+
 while True:
     if usb_cdc.data.in_waiting:
-        cmd = usb_cdc.data.readline().decode().strip()
-        
-        if cmd == "READ":
-            wert1 = hx1.read()
-            wert2 = hx2.read()
-            wert3 = hx3.read()
-            wert4 = hx4.read()
-
-            data = {
-                "Wasser": wert1,
-                "Sirup_a": wert2,
-                "Sirup_b": wert3,
-                "Sirup_c": wert4
-            }
+        try:
+            cmd = usb_cdc.data.readline().decode().strip()
+            print(f"Received command: '{cmd}'")
             
-            json_data = json.dumps(data) + "\n"
-            usb_cdc.data.write(json_data.encode("utf-8"))
-            usb_cdc.data.flush()
+            if cmd == "READ":
+                print("Reading sensors...")
+                wert1 = hx1.read()
+                wert2 = hx2.read()
+                wert3 = hx3.read()
+                wert4 = hx4.read()
+                
+                print(f"Raw values: {wert1}, {wert2}, {wert3}, {wert4}")
+
+                data = {
+                    "Wasser": wert1,
+                    "Sirup_a": wert2,
+                    "Sirup_b": wert3,
+                    "Sirup_c": wert4
+                }
+                
+                json_data = json.dumps(data) + "\n"
+                print(f"Sending: {json_data.strip()}")
+                usb_cdc.data.write(json_data.encode())
+                usb_cdc.data.flush()
+                print("Data sent")
+            else:
+                print(f"Unknown command: {cmd}")
+                
+        except Exception as e:
+            print(f"Error: {str(e)}")
             
     time.sleep(0.1)
 

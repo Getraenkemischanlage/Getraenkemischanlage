@@ -18,5 +18,5 @@ flow_rate = 100.0  # ml/s
 target_volume = 400
 
 # Serial Port Einstellungen (kann in GUI angepasst werden)
-SERIAL_PORT = "/dev/ttyACM0"  # oder "COM5" auf Windows
-BAUDRATE = 115200
+SERIAL_PORT = "COM5"  # Windows COM port
+BAUDRATE = 9600      # Match this on both PC and Pico

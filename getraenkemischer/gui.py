@@ -3,11 +3,11 @@ from tkinter import ttk
 from collections import Counter
 import json
 import os
+import serial
+import time
 
 from drink_suggestion import DrinkSuggestion
-
-from sensor_manager import SensorManager  
-from config import totraum, flow_rate, target_volume
+from sensor_manager import SensorManager
 
 
 
@@ -50,7 +50,7 @@ class BeverageGUI:
         tk.Button(root, text="NOT-AUS", command=self.emergency_stop, bg="white", fg="red").pack(pady=10)
         tk.Button(root, text="NOT-AUS zurücksetzen", command=self.reset_emergency_stop, bg="white", fg="green").pack(pady=5)
 
-        self.update_gui()
+        self.update_gui()  # Start the update cycle
 
     def create_progress_bars(self):
         tk.Label(self.root, text="Füllstände:").pack()
@@ -81,7 +81,10 @@ class BeverageGUI:
 
     def update_progress_bars(self):
         for ingredient, bar in self.progress_bars.items():
-            bar['value'] = self.fill_levels.get(ingredient, 0)
+            raw_value = self.fill_levels.get(ingredient, 0)
+            # Normalize the raw sensor value (typical range 8000000-8600000) to 0-1000 for progress bar
+            normalized_value = max(0, min(1000, (raw_value - 8000000) / 600))
+            bar['value'] = normalized_value
 
     def update_button_states(self):
         for drink, button in self.buttons.items():
@@ -89,10 +92,22 @@ class BeverageGUI:
             button.config(state="normal" if volume >= self.logic.target_volume_ml else "disabled")
 
     def update_gui(self):
-        self.fill_levels = self.sensor_manager.read_fill_levels()
-        self.logic.fill_levels = self.fill_levels.copy()
-        self.update_progress_bars()
-        self.update_button_states()
+        try:
+            self.fill_levels = self.sensor_manager.read_fill_levels()
+            print(f"Received fill levels: {self.fill_levels}")  # Debug print
+            if self.fill_levels:  # Only update if we got valid data
+                self.logic.fill_levels = self.fill_levels.copy()
+                self.update_progress_bars()
+                self.update_button_states()
+            else:
+                self.text_output.delete("1.0", tk.END)
+                self.text_output.insert(tk.END, "Keine Sensordaten empfangen\n")
+        except Exception as e:
+            self.text_output.delete("1.0", tk.END)
+            self.text_output.insert(tk.END, f"Fehler beim Lesen der Sensoren: {e}\n")
+        
+        # Schedule the next update
+        self.root.after(1000, self.update_gui)  # Update every second
 
     def mix_drink(self, drink_name):
         self.text_output.delete("1.0", tk.END)
