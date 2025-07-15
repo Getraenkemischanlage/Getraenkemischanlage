@@ -1,6 +1,6 @@
 # sensor_manager.py (PC-Seite)
 import serial
-import jsonx
+import json
 from config import SERIAL_PORT, BAUDRATE
 
 class SensorManager:

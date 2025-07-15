@@ -10,7 +10,7 @@ from hx711 import HX711
 class PumpController:
     def __init__(self):
         self.flow_rate_ml_per_sec = flow_rate
-        self.taotraum = totraum
+        self.totraum = totraum
         self.pumps = {}
         for name, pin in pump_pins.items():
             p = digitalio.DigitalInOut(pin)
@@ -100,5 +100,3 @@ def main_loop():
         time.sleep(0.05)
 
 main_loop()
-
-'''
