@@ -17,16 +17,28 @@ sensor_pins = {
     "Sirup_c": board.GP4,
 }
 
-# Totraum je Zutat (ml)
+# UART Pins für PC Kommunikation
+uart_pins = {
+    "TX": board.GP12,  # Geändert auf freie Pins
+    "RX": board.GP13,  # Geändert auf freie Pins
+}
+
+# Totraum je Zutat in ml (realistischere Werte)
 totraum = {
-    "Wasser": 100,
-    "Sirup_a": 100,
-    "Sirup_b": 100,
-    "Sirup_c": 100,
+    "Wasser": 2,
+    "Sirup_a": 1,
+    "Sirup_b": 1,
+    "Sirup_c": 1,
 }
 
 # Flussrate pro Pumpe (ml/s)
-flow_rate = 100
+flow_rate = 50  # Angepasst auf realistischeren Wert
 
-# Zielmenge (für Mixing z. B. Cocktail)
+# Zielmenge (für Mixing z. B. Cocktail)
 target_volume = 400
+
+# Minimale und maximale Sensorwerte für Füllstandsberechnung
+sensor_limits = {
+    "min": 7800000,
+    "max": 8600000
+}
