@@ -85,7 +85,7 @@ while True:
         # Also print human-readable format for debugging
         print(f"Sensor 1: {sensor_data['Wasser']} | Sensor 2: {sensor_data['Sirup_a']} | Sensor 3: {sensor_data['Sirup_b']} | Sensor 4: {sensor_data['Sirup_c']}")
         
-        time.sleep(1.0)  # Send data every second
+        time.sleep(5.0)  # Send data every second
         
     except Exception as e:
         print(f"Error in main loop: {e}")

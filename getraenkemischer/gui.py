@@ -80,13 +80,26 @@ class BeverageGUI:
                 row += 1
 
     def update_progress_bars(self):
+        # Sensor offsets
+        self.OFFSETS = {
+            "Wasser": 8070893,
+            "Sirup_a": 8569537,
+            "Sirup_b": 7868091,
+            "Sirup_c": 8605134
+        }
+        
         for ingredient, bar in self.progress_bars.items():
             raw_value = self.fill_levels.get(ingredient, 0)
-            # Normalize the raw sensor value (typical range 7800000-8600000) to 0-1000 for progress bar
-            # Based on your sensor readings: min ~7871674, max ~8574153
-            min_sensor_value = 7800000
-            max_sensor_value = 8600000
-            normalized_value = max(0, min(1000, ((raw_value - min_sensor_value) / (max_sensor_value - min_sensor_value)) * 1000))
+            # Apply offset calibration
+            calibrated_value = raw_value - self.OFFSETS[ingredient]
+            # Set to 1 if negative
+            if calibrated_value < 0:
+                calibrated_value = 1
+                
+            # Normalize for progress bar (0-1000)
+            min_sensor_value = 0       # Empty container
+            max_sensor_value = 1000000  # Full container
+            normalized_value = max(0, min(1000, (calibrated_value / max_sensor_value) * 1000))
             bar['value'] = normalized_value
 
     def update_button_states(self):
@@ -97,19 +110,36 @@ class BeverageGUI:
     def update_gui(self):
         try:
             self.fill_levels = self.sensor_manager.read_fill_levels()
-            print(f"Received fill levels: {self.fill_levels}")  # Debug print
-            if self.fill_levels:  # Only update if we got valid data
+            
+            # Nur Debug-Ausgabe wenn Werte vorhanden
+            if self.fill_levels:
+                print(f"Empfangene Füllstände:")
+                for ingredient, value in self.fill_levels.items():
+                    print(f"{ingredient}: {value}")
+                
                 self.logic.fill_levels = self.fill_levels.copy()
                 self.update_progress_bars()
                 self.update_button_states()
+                
+                # Text-Ausgabe in GUI aktualisieren
+                self.text_output.delete("1.0", tk.END)
+                self.text_output.insert(tk.END, "Aktuelle Füllstände:\n")
+                for ingredient, value in self.fill_levels.items():
+                    raw_value = value
+                    calibrated = raw_value - self.OFFSETS[ingredient]
+                    if calibrated < 0:
+                        calibrated = 1
+                    percentage = min(100, max(0, (calibrated / 950000) * 100))
+                    self.text_output.insert(tk.END, f"{ingredient}: {percentage:.1f}%\n")
             else:
                 self.text_output.delete("1.0", tk.END)
-                self.text_output.insert(tk.END, "Keine Sensordaten empfangen\n")
+                self.text_output.insert(tk.END, "Warte auf Sensordaten...\n")
+                
         except Exception as e:
             self.text_output.delete("1.0", tk.END)
             self.text_output.insert(tk.END, f"Fehler beim Lesen der Sensoren: {e}\n")
         
-        # Schedule the next update
+        # Nächstes Update planen
         self.root.after(1000, self.update_gui)  # Update every second
 
     def mix_drink(self, drink_name):

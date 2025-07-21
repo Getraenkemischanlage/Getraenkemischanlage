@@ -1,5 +1,5 @@
 # sensor_main.py (Pico-Seite – wird auf dem Mikrocontroller ausgeführt)
-import board
+'''import board
 import digitalio
 import time
 import usb_cdc
@@ -39,3 +39,4 @@ def main_loop():
         time.sleep(0.1)
 
 main_loop()
+'''
