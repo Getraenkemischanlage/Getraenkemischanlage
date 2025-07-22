@@ -1,4 +1,4 @@
-import serial
+'''import serial
 import json
 
 class PicoSerialInterface:
@@ -30,3 +30,4 @@ class PicoSerialInterface:
     def reset_pumps(self):
         self.send_command("RESET_PUMPS")
         return self.read_response()
+        '''

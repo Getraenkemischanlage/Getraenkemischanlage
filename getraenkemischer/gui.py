@@ -6,10 +6,9 @@ import os
 import serial
 import time
 
+from recipe_manager import RecipeManager
 from drink_suggestion import DrinkSuggestion
 from sensor_manager import SensorManager
-
-
 
 
 class BeverageGUI:
@@ -50,7 +49,17 @@ class BeverageGUI:
         tk.Button(root, text="NOT-AUS", command=self.emergency_stop, bg="white", fg="red").pack(pady=10)
         tk.Button(root, text="NOT-AUS zurücksetzen", command=self.reset_emergency_stop, bg="white", fg="green").pack(pady=5)
 
-        self.update_gui()  # Start the update cycle
+        # Initialize serial connection
+        self.serial_port = None
+        try:
+            # Use the same serial connection as sensor_manager
+            self.serial_port = "COM5"
+            if self.serial_port and self.serial_port.is_open:
+                print("Serielle Verbindung über SensorManager hergestellt")
+            else:
+                print("Keine Verbindung über SensorManager verfügbar")
+        except Exception as e:
+            print(f"Error accessing serial port: {e}")
 
     def create_progress_bars(self):
         tk.Label(self.root, text="Füllstände:").pack()
@@ -61,6 +70,15 @@ class BeverageGUI:
             bar = ttk.Progressbar(frame, length=200, maximum=1000)
             bar.pack(side='left', fill='x')
             self.progress_bars[ingredient] = bar
+        
+        # Add refresh button after progress bars
+        tk.Button(
+            self.root, 
+            text="Füllstände aktualisieren",
+            command=self.request_sensor_data,
+            bg="lightblue",
+            width=20
+        ).pack(pady=5)
 
     def create_drink_buttons(self):
         button_frame = tk.Frame(self.root)
@@ -107,21 +125,17 @@ class BeverageGUI:
             volume = self.logic.max_mixable_volume_ml(self.logic.recipe_manager.get_recipe(drink))
             button.config(state="normal" if volume >= self.logic.target_volume_ml else "disabled")
 
-    def update_gui(self):
+    def request_sensor_data(self):
+        """Request sensor data only when needed"""
         try:
             self.fill_levels = self.sensor_manager.read_fill_levels()
             
-            # Nur Debug-Ausgabe wenn Werte vorhanden
             if self.fill_levels:
-                print(f"Empfangene Füllstände:")
-                for ingredient, value in self.fill_levels.items():
-                    print(f"{ingredient}: {value}")
-                
                 self.logic.fill_levels = self.fill_levels.copy()
                 self.update_progress_bars()
                 self.update_button_states()
                 
-                # Text-Ausgabe in GUI aktualisieren
+                # Update text display
                 self.text_output.delete("1.0", tk.END)
                 self.text_output.insert(tk.END, "Aktuelle Füllstände:\n")
                 for ingredient, value in self.fill_levels.items():
@@ -133,28 +147,38 @@ class BeverageGUI:
                     self.text_output.insert(tk.END, f"{ingredient}: {percentage:.1f}%\n")
             else:
                 self.text_output.delete("1.0", tk.END)
-                self.text_output.insert(tk.END, "Warte auf Sensordaten...\n")
+                self.text_output.insert(tk.END, "Keine Sensordaten verfügbar\n")
                 
         except Exception as e:
             self.text_output.delete("1.0", tk.END)
             self.text_output.insert(tk.END, f"Fehler beim Lesen der Sensoren: {e}\n")
         
-        # Nächstes Update planen
-        self.root.after(1000, self.update_gui)  # Update every second
 
     def mix_drink(self, drink_name):
         self.text_output.delete("1.0", tk.END)
 
         if drink_name in self.logic.recipe_manager.get_all_recipes():
-            result = self.logic.apply_recipe(drink_name)
+            recipe = self.logic.recipe_manager.get_recipe(drink_name)
+            
+            try:
+                if self.serial_port and self.serial_port.is_open:
+                    # Convert recipe to JSON and send
+                    json_command = json.dumps(recipe)
+                    # Add command prefix to distinguish from sensor data
+                    self.serial_port.write(f"MIX:{json_command}\n".encode())
+                    self.text_output.insert(tk.END, f"Mixe {drink_name}...\n")
+                    time.sleep(5)  # Wait for mixing
+                    self.request_sensor_data()  # Update sensors after
+                else:
+                    self.text_output.insert(tk.END, "Keine Verbindung zu den Pumpen!\n")
+                    return
+                
+            except Exception as e:
+                self.text_output.insert(tk.END, f"Fehler beim Senden: {e}\n")
+                return
+
             self.letztes_getraenk = drink_name
-
-            if result:
-                self.text_output.insert(tk.END, str(result))
-            else:
-                self.text_output.insert(tk.END, f"'{drink_name}' wurde gemixt.\n")
-
-            self.update_gui()
+            self.request_sensor_data()
         else:
             self.text_output.insert(tk.END, "Rezept nicht vorhanden.\n")
 
@@ -162,7 +186,7 @@ class BeverageGUI:
         self.text_output.delete("1.0", tk.END)
         result = self.logic.suggest_best_drink()
         self.text_output.insert(tk.END, result)
-        self.update_gui()
+        self.request_sensor_data()
 
     def emergency_stop(self):
         for button in self.buttons.values():
