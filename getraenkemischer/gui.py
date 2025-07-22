@@ -16,6 +16,7 @@ class BeverageGUI:
         self.root = root
         self.root.title("Getränkesteuerung")
 
+        # Initialisiere SensorManager und lade erste Sensordaten
         self.sensor_manager = SensorManager()
         self.fill_levels = self.sensor_manager.read_fill_levels()
         self.logic = DrinkSuggestion(self.fill_levels.copy())
@@ -49,12 +50,20 @@ class BeverageGUI:
         tk.Button(root, text="NOT-AUS", command=self.emergency_stop, bg="white", fg="red").pack(pady=10)
         tk.Button(root, text="NOT-AUS zurücksetzen", command=self.reset_emergency_stop, bg="white", fg="green").pack(pady=5)
 
+        # Schaltfläche zum manuellen Aktualisieren der Füllstände
+        tk.Button(
+            root, 
+            text="Füllstände aktualisieren",
+            command=self.request_sensor_data,
+            bg="lightblue",
+            width=20
+        ).pack(pady=5)
+
         # Initialize serial connection
         self.serial_port = None
         try:
-            # Use the same serial connection as sensor_manager
-            self.serial_port = "COM5"
-            if self.serial_port and self.serial_port.is_open:
+            self.serial_port = serial.Serial("COM5", baudrate=9600, timeout=1)
+            if self.serial_port.is_open:
                 print("Serielle Verbindung über SensorManager hergestellt")
             else:
                 print("Keine Verbindung über SensorManager verfügbar")
@@ -70,15 +79,6 @@ class BeverageGUI:
             bar = ttk.Progressbar(frame, length=200, maximum=1000)
             bar.pack(side='left', fill='x')
             self.progress_bars[ingredient] = bar
-        
-        # Add refresh button after progress bars
-        tk.Button(
-            self.root, 
-            text="Füllstände aktualisieren",
-            command=self.request_sensor_data,
-            bg="lightblue",
-            width=20
-        ).pack(pady=5)
 
     def create_drink_buttons(self):
         button_frame = tk.Frame(self.root)
@@ -110,7 +110,6 @@ class BeverageGUI:
             raw_value = self.fill_levels.get(ingredient, 0)
             # Apply offset calibration
             calibrated_value = raw_value - self.OFFSETS[ingredient]
-            # Set to 1 if negative
             if calibrated_value < 0:
                 calibrated_value = 1
                 
@@ -129,7 +128,6 @@ class BeverageGUI:
         """Request sensor data only when needed"""
         try:
             self.fill_levels = self.sensor_manager.read_fill_levels()
-            
             if self.fill_levels:
                 self.logic.fill_levels = self.fill_levels.copy()
                 self.update_progress_bars()
@@ -152,14 +150,11 @@ class BeverageGUI:
         except Exception as e:
             self.text_output.delete("1.0", tk.END)
             self.text_output.insert(tk.END, f"Fehler beim Lesen der Sensoren: {e}\n")
-        
 
     def mix_drink(self, drink_name):
         self.text_output.delete("1.0", tk.END)
-
         if drink_name in self.logic.recipe_manager.get_all_recipes():
             recipe = self.logic.recipe_manager.get_recipe(drink_name)
-            
             try:
                 if self.serial_port and self.serial_port.is_open:
                     # Convert recipe to JSON and send
@@ -168,11 +163,10 @@ class BeverageGUI:
                     self.serial_port.write(f"MIX:{json_command}\n".encode())
                     self.text_output.insert(tk.END, f"Mixe {drink_name}...\n")
                     time.sleep(5)  # Wait for mixing
-                    self.request_sensor_data()  # Update sensors after
+                    self.request_sensor_data()  # Update sensors after mixing
                 else:
                     self.text_output.insert(tk.END, "Keine Verbindung zu den Pumpen!\n")
                     return
-                
             except Exception as e:
                 self.text_output.insert(tk.END, f"Fehler beim Senden: {e}\n")
                 return
@@ -233,16 +227,13 @@ class BeverageGUI:
 
     def zeige_top_getraenke(self):
         self.text_output.insert(tk.END, "\n Meistgelikte Getränke:\n")
-
         likes = [b["getränk"] for b in self.bewertungen if b["bewertung"] == "like"]
         counter = Counter(likes)
         alle_getraenke = list({b["getränk"] for b in self.bewertungen})
         sortiert = sorted(alle_getraenke, key=lambda g: -counter.get(g, 0))
-
         for getraenk in sortiert:
             anzahl = counter.get(getraenk, 0)
             self.text_output.insert(tk.END, f"{getraenk}: {anzahl} Like(s)\n")
-
         if not self.bewertungen:
             self.text_output.insert(tk.END, "Noch keine Bewertungen vorhanden.\n")
 
